@@ -19,9 +19,9 @@ namespace Tabloid.Controllers
 
         // https://localhost:5001/api/comment/  //might need to change this
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(int PostId)
         {
-            return Ok(_commentRepository.GetAllComments());
+            return Ok(_commentRepository.GetAllCommentsByPostId(PostId));
         }
     }
 }

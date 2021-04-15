@@ -10,7 +10,11 @@ namespace Tabloid.Repositories
     {
         public CommentRepository(IConfiguration configuration) : base(configuration) { }
 
-        public List<Comment> GetAllComments() //find which model this lives in
+
+
+
+
+        public List<Comment> GetAllCommentsByPostId(int id) //find which model this lives in
         {
             using (var conn = Connection)
             {
@@ -22,7 +26,10 @@ namespace Tabloid.Repositories
                                  up.Id AS UserProfileId, up.DisplayName, up.FirstName, up.LastName, up.Email
                             FROM Comment c
                           LEFT JOIN UserProfile up ON c.UserProfileId = up.Id
+                          WHERE c.PostId = @Id
                           ORDER BY CreateDateTime";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
 
                     var reader = cmd.ExecuteReader();
 
@@ -32,7 +39,7 @@ namespace Tabloid.Repositories
                         comments.Add(new Comment()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            PostId = DbUtils.GetInt(reader, "PostId"),
+                            PostId = id,
                             Subject = DbUtils.GetString(reader, "Subject"),
                             Content = DbUtils.GetString(reader, "Content"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
@@ -54,5 +61,55 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+
+
+
+            public Comment GetById(int id)
+            {
+                using (var conn = Connection)
+                {
+                    conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = @"
+                          SELECT c.Id, c.PostId, c.UserProfileId, c.Subject, c.Content, c.CreateDateTime,
+                                 up.Id AS UserProfileId, up.DisplayName, up.FirstName, up.LastName, up.Email
+                            FROM Comment c
+                          LEFT JOIN UserProfile up ON c.UserProfileId = up.Id
+                          ORDER BY CreateDateTime";
+
+                        DbUtils.AddParameter(cmd, "@c.Id", id);
+
+                        var reader = cmd.ExecuteReader();
+
+                        Comment comment = null;
+                        if (reader.Read())
+                        {
+                            comment = new Comment()
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                PostId = DbUtils.GetInt(reader, "PostId"),
+                                Subject = DbUtils.GetString(reader, "Subject"),
+                                Content = DbUtils.GetString(reader, "Content"),
+                                CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                                UserProfile = new UserProfile()
+                                {
+                                    Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                    DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                                    FirstName = DbUtils.GetString(reader, "FirstName"),
+                                    LastName = DbUtils.GetString(reader, "LastName"),
+                                    Email = DbUtils.GetString(reader, "Email"),
+                                }
+                            };
+                        }
+
+                        reader.Close();
+
+                        return comment;
+                    }
+                }
+            }
     }
 }
