@@ -37,6 +37,9 @@ export default function Header() {
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="api/category">Category Management</NavLink>
+                </NavItem>
               </>
             }
             {!isLoggedIn &&
@@ -46,9 +49,6 @@ export default function Header() {
                 </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/register">Register</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/categories">Category Management</NavLink>
                 </NavItem>
               </>
             }

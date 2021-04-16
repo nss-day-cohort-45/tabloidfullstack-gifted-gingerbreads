@@ -6,7 +6,7 @@ const Category = ({ category }) => {
         <Card className="m-4">
             <CardBody>
                 <p>
-                    <strong>{category.title}</strong>
+                    <strong>{category.name}</strong>
                 </p>
             </CardBody>
         </Card>
