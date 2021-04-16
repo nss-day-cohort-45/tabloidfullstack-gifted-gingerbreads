@@ -4,6 +4,9 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
+import CategoryList from "./Categories/CategoryList";
+import CategoryProvider from "../providers/CategoryProvider"
+
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -23,6 +26,11 @@ export default function ApplicationViews() {
           <Register />
         </Route>
       </Switch>
+      <Route path="/api/category">
+        <CategoryProvider >
+          <CategoryList />
+        </CategoryProvider>
+      </Route>
     </main>
   );
 };
