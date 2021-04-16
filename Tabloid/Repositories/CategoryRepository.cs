@@ -71,7 +71,58 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        public void Add(Category cat)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Category (Name)
+                        OUTPUT INSERTED.ID
+                        VALUES (@Name)";
 
-       
+                    DbUtils.AddParameter(cmd, "@Name", cat.Name);
+
+                    cat.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void Delete(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Category WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void Update(Category cat)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Category
+                           SET Name = @Name
+                         WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Name", cat.Name);
+                    DbUtils.AddParameter(cmd, "@Id", cat.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
     }
 }

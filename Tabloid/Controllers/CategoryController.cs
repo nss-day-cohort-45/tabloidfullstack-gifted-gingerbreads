@@ -34,5 +34,34 @@ namespace Tabloid.Controllers
             return Ok(cat);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _categoryRepository.Delete(id);
+            return NoContent();
+        }
+
+        [HttpPost]
+        public IActionResult Post(Category cat)
+        {
+            _categoryRepository.Add(cat);
+            return CreatedAtAction("Get", new { id = cat.Id }, cat);
+
+        }
+
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Category cat)
+        {
+            if (id != cat.Id)
+            {
+                return BadRequest();
+            }
+
+            _categoryRepository.Update(cat);
+            return NoContent();
+        }
+
+
     }
 }
