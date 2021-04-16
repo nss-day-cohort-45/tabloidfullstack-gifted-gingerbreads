@@ -25,14 +25,14 @@ namespace Tabloid.Controllers
             return Ok(_tagRepo.GetAll());
         }
 
-        [HttpPost]
+        [HttpPost("add")]
         public IActionResult Add(Tag tag)
         {
             _tagRepo.Add(tag);
             return CreatedAtAction("Get", new { id = tag.Id }, tag);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("edit/{id}")]
         public IActionResult Update(int id, Tag tag)
         {
             if (id != tag.Id)
@@ -44,7 +44,7 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
             _tagRepo.Delete(id);

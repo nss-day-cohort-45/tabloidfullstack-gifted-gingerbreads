@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import TagList from "./tags/TagList";
+import TagForm from "./tags/TagForm";
 import { TagProvider } from "../providers/TagProvider";
 
 export default function ApplicationViews() {
@@ -17,9 +18,16 @@ export default function ApplicationViews() {
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
         </Route>
 
+        {/*Tags*/}
         <Route path="/tags" exact>
           <TagProvider>
             <TagList />
+          </TagProvider>
+        </Route>
+
+        <Route path="/tag/create" exact>
+          <TagProvider>
+            <TagForm />
           </TagProvider>
         </Route>
 
