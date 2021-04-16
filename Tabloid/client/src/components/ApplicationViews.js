@@ -4,8 +4,10 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import CommentList from "./Comments.js/CommentList";
 import { CommentProvider } from "../providers/CommentProvider";
+import CommentList from "./Comments.js/CommentList";
+import CommentForm from "./Comments.js/CommentForm";
+
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -25,11 +27,17 @@ export default function ApplicationViews() {
           <Register />
         </Route>
 
-        <Route path="/api/commentlist">
+        <Route path="/api/commentList">
           <CommentProvider>
             <CommentList />
           </CommentProvider>
-        </Route>"
+        </Route>
+
+        <Route path="/api/commentForm">
+          <CommentProvider>
+            <CommentForm />
+          </CommentProvider>
+        </Route>
 
       </Switch>
     </main>
