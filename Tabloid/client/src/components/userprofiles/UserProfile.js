@@ -10,7 +10,7 @@ export const UserProfile = ({userProfile}) => {
     <section className="userProfile">
       <div class Name="user__fullName">{userProfile.fullName}</div>
       <div class Name="user__displayName">{userProfile.displayName}</div>
-      <div class Name="user__userType">{userProfile.userType}</div>
+      <div class Name="user__userType">{userProfile.userType.Name}</div>
     </section>
   )
 }

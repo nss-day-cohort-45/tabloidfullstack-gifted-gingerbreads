@@ -7,11 +7,11 @@ import { useParams } from "react-router-dom"
 
 export const UserProfileList = () => {
 
-  const { userProfiles, getUserProfiles } = useContext(UserProfileContext)
+  const { userProfiles, getUserProfile } = useContext(UserProfileContext)
 
   useEffect(() => {
     console.log("UserList: useEffect - getUsers")
-    getUserProfiles()
+    getUserProfile()
   }, [])
 
   return (
