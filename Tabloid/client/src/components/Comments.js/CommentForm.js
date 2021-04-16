@@ -1,9 +1,13 @@
 import React, { useContext, useState } from "react";
 import { CommentContext } from "../../providers/CommentProvider";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+
 
 const CommentForm = () => {
-    const { addComment } = useContext(CommentContext)
+    const { matchedCommentId } = useParams();
+    const [isLoading, setIsLoading] = useState(true);
+    const history = useHistory();
+    const { addComment, editComment } = useContext(CommentContext)
 
     const [comment, setComment] = useState({
         postId: 0,
@@ -11,8 +15,6 @@ const CommentForm = () => {
         subject: "",
         content: "",
     });
-
-    const history = useHistory();
 
     const handleControlledInputChange = (event) => {
         const newComment = { ...comment }
@@ -24,11 +26,44 @@ const CommentForm = () => {
         setComment(newComment)
     }
 
+
+
+
     const handleClickSaveComment = (event) => {
+        if (matchedCommentId) {
+            editComment({
+
+            })
+        }
         event.preventDefault()
         addComment(comment)
-            .then(() => history.push("/")) //needs to be redirected to the Comment List page for this post
+            .then(() => history.push("/comments"))
     }
+
+
+
+    const handleClickSaveComment = () => {
+        setIsLoading(true);
+        if (matchedCommentId) {
+            editComment({
+                id: familyHistory.id,
+                userId: userId,
+                condition: familyHistory.condition,
+                relativeId: parseInt(familyHistory.relativeId)
+            })
+                .then(() => history.push("/FamilyHistory"))
+        } else {
+            addComment({
+                userId: userId,
+                condition: familyHistory.condition,
+                relativeId: parseInt(familyHistory.relativeId)
+            })
+                .then(() => history.push("/comments"))
+        }
+    };
+
+
+
 
     return (
         <form className="CommentForm">
@@ -63,4 +98,6 @@ const CommentForm = () => {
     )
 };
 
+// for save after editing a comment should be redirected to the comment's detail page(?)
+// going to need to add a cancel button for edit only -- if the cancel button is clicked need to be redirect to the list page 
 export default CommentForm;

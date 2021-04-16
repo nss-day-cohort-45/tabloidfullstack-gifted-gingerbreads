@@ -23,7 +23,7 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                           SELECT c.Id, c.PostId, c.UserProfileId, c.Subject, c.Content, c.CreateDateTime,
-                                 up.Id AS UserProfileId, up.DisplayName, up.FirstName, up.LastName, up.Email
+                                 up.Id AS UserProfileId, up.DisplayName
                             FROM Comment c
                           LEFT JOIN UserProfile up ON c.UserProfileId = up.Id
                           WHERE c.PostId = @Id
@@ -48,9 +48,6 @@ namespace Tabloid.Repositories
                             {
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
                                 DisplayName = DbUtils.GetString(reader, "DisplayName"),
-                                FirstName = DbUtils.GetString(reader, "FirstName"),
-                                LastName = DbUtils.GetString(reader, "LastName"),
-                                Email = DbUtils.GetString(reader, "Email"),
                             }
                         });
                     }

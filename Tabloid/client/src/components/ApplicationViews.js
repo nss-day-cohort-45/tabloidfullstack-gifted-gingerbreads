@@ -27,17 +27,19 @@ export default function ApplicationViews() {
           <Register />
         </Route>
 
-        <Route path="/api/commentList">
-          <CommentProvider>
+        <CommentProvider>
+          <Route path="/comments" exact>
             <CommentList />
-          </CommentProvider>
-        </Route>
+          </Route>
 
-        <Route path="/api/commentForm">
-          <CommentProvider>
+          <Route path="/comment/create" exact>
             <CommentForm />
-          </CommentProvider>
-        </Route>
+          </Route>
+
+          <Route path="/comment/edit/:commentId(\d+)" exact>
+            <CommentForm />
+          </Route>
+        </CommentProvider>
 
       </Switch>
     </main>

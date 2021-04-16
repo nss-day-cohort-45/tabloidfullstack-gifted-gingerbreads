@@ -19,8 +19,7 @@ namespace Tabloid.Controllers
 
 
 
-        // https://localhost:5001/api/comment/  //might need to change this
-        [HttpGet]
+        [HttpGet("/comments")]
         public IActionResult Get(int PostId)
         {
             return Ok(_commentRepository.GetAllCommentsByPostId(PostId));
@@ -30,8 +29,7 @@ namespace Tabloid.Controllers
 
 
 
-        // https://localhost:5001/api/comment/
-        [HttpPost]
+        [HttpPost("/create")]
         public IActionResult Comment(Comment comment)
         {
             comment.CreateDateTime = DateTime.Now;
@@ -43,7 +41,7 @@ namespace Tabloid.Controllers
 
 
 
-        [HttpPut("{id}")]
+        [HttpPut("/comment/edit/{id}")]
         public IActionResult Put(int id, Comment comment)
         {
             if (id != comment.Id)
@@ -59,7 +57,7 @@ namespace Tabloid.Controllers
 
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("/comment/{id}")]
         public IActionResult Delete(int id)
         {
             _commentRepository.Delete(id);

@@ -13,14 +13,14 @@ export const CommentProvider = (props) => {
 
 
     const getAllCommentsByPostId = () => {
-        return fetch("/api/comment")      // endpoints may need to change
+        return fetch("/comment")      // endpoints may need to change
             .then((res) => res.json())
             .then(setComments);
     };
 
 
     const addComment = (comment) => {
-        return fetch("/api/comment", {
+        return fetch("/comment", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export const CommentProvider = (props) => {
 
 
     const editComment = (comment) => {
-        return fetch(`/api/comment/${comment.id}`, {
+        return fetch(`/comment/${comment.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export const CommentProvider = (props) => {
 
 
     const deleteComment = (commentId) => {
-        return fetch(`/api/comment/${commentId}`, {
+        return fetch(`/comment/${commentId}`, {
             method: "DELETE"
         })
     };
