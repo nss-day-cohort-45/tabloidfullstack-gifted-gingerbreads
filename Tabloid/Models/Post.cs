@@ -23,6 +23,10 @@ namespace Tabloid.Models
 
         public int CategoryId { get; set; }
 
+        public Category PostCategory { get; set; }
+
         public int UserProfileId { get; set; }
+
+        public UserProfile PostAuthor { get; set; }
     }
 }

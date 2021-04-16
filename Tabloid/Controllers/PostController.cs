@@ -21,5 +21,16 @@ namespace Tabloid.Controllers
         {
             return Ok(_postRepository.GetAll());
         }
+
+        [HttpGet("{userId}")]
+        public IActionResult Get(int userId)
+        {
+            var userPosts = _postRepository.GetUserPosts(userId);
+            if (userPosts == null)
+            {
+                return NotFound();
+            }
+            return Ok(userPosts);
+        }
     }
 }

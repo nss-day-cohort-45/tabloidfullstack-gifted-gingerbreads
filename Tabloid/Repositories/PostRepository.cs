@@ -20,9 +20,13 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved,
-                               CategoryId, UserProfileId
-                        FROM Post";
+                        SELECT p.Id AS PostId, p.Title, p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+                        c.Id AS CategoryId, c.[Name],
+                        up.Id AS UserProfileId, up.FirstName, up.LastName
+                        FROM Post p
+                        LEFT JOIN Category c ON c.Id = p.CategoryId
+                        LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
+                        WHERE p.IsApproved = 1";
 
                     var reader = cmd.ExecuteReader();
 
@@ -31,15 +35,77 @@ namespace Tabloid.Repositories
                     {
                         posts.Add(new Post()
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
+                            Id = DbUtils.GetInt(reader, "PostId"),
                             Title = DbUtils.GetString(reader, "Title"),
-                            Content = DbUtils.GetString(reader, "Content"),
-                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
                             IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
                             CategoryId = DbUtils.GetInt(reader, "CategoryId"),
-                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
+                            PostCategory = new Category()
+                            {
+                                Id = DbUtils.GetInt(reader, "CategoryId"),
+                                Name = DbUtils.GetString(reader, "Name")
+                            },
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            PostAuthor = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName")
+                            }
+                        });
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
+
+        public List<Post> GetUserPosts(int userProfileId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT p.Id AS PostId, p.Title, p.CreateDateTime, p.PublishDateTime, p.IsApproved,
+                        c.Id AS CategoryId, c.[Name],
+                        up.Id AS UserProfileId, up.FirstName, up.LastName
+                        FROM Post p
+                        LEFT JOIN Category c ON c.Id = p.CategoryId
+                        LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
+                        WHERE up.id = @userProfileId";
+
+                    cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "PostId"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            PostCategory = new Category()
+                            {
+                                Id = DbUtils.GetInt(reader, "CategoryId"),
+                                Name = DbUtils.GetString(reader, "Name")
+                            },
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            PostAuthor = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName")
+                            }
                         });
                     }
 
