@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { PostContext } from "../providers/PostProvider";
 
-const PostList = () => {
-    const { posts, getPosts } = useContext(PostContext);
+
+const UserPostList = () => {
+    const { posts, getUserPosts } = useContext(PostContext);
 
     useEffect(() => {
-        getPosts();
+        getUserPosts(JSON.parse(sessionStorage.userProfile).id)
     }, []);
 
     return (
@@ -21,4 +22,4 @@ const PostList = () => {
     );
 };
 
-export default PostList;
+export default UserPostList;

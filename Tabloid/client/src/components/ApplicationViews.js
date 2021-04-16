@@ -5,6 +5,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import PostList from "./PostList";
+import UserPostList from "./UserPostsList";
 import { PostProvider } from "../providers/PostProvider";
 
 export default function ApplicationViews() {
@@ -29,6 +30,10 @@ export default function ApplicationViews() {
       <PostProvider>
         <Route path="/posts">
           <PostList />
+        </Route>
+
+        <Route path="/userPosts">
+          <UserPostList />
         </Route>
       </PostProvider>
     </main>
