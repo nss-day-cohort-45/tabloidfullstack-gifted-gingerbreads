@@ -52,18 +52,51 @@ namespace Tabloid.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Tag (Id, Name)
-                    OUTPUT INSERTED.ID
-                    VALUES (@Id, @Name)
+                        INSERT INTO Tag (Name)
+                        OUTPUT INSERTED.ID
+                        VALUES (@Name)
                     ";
 
-                    DbUtils.AddParameter(cmd, "Id", tag.Id);
-                    DbUtils.AddParameter(cmd, "Name", tag.Name);
+
+                    DbUtils.AddParameter(cmd, "@Name", tag.Name);
 
                     tag.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
+
+
+        public void Update(Tag tag)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Tag SET Name = @Name WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@Name", tag.Name);
+                    cmd.Parameters.AddWithValue("@id", tag.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void Delete(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Tag WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
 
 
     }
