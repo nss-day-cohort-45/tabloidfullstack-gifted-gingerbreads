@@ -4,6 +4,12 @@ export const CommentContext = React.createContext();
 
 export const CommentProvider = (props) => {
     const [comments, setComments] = useState([]);
+    /*
+        Above line: Array destructoring, useState is returning what is declared 
+        in the (), so in this instance it will be returning an array with a 0 
+        index and a 1 index. 0 index is the state and 1 index is the function used
+        to set state
+    */
 
 
     const getAllCommentsByPostId = () => {
@@ -19,7 +25,7 @@ export const CommentProvider = (props) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(post),
+            body: JSON.stringify(comment),
         });
     };
 
