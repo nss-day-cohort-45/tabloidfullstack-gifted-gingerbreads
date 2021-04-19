@@ -8,6 +8,7 @@ import TagList from "./tags/TagList";
 import TagForm from "./tags/TagForm";
 import TagDelete from "./tags/TagDelete";
 import TagEdit from "./tags/TagEdit";
+import ManagePostTags from "./tags/ManagePostTags";
 import { TagProvider } from "../providers/TagProvider";
 import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
@@ -69,6 +70,10 @@ export default function ApplicationViews() {
 
         <Route exact path="/post/:postId(\d+)">
           {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route exact path="/post/manage-tags/:postId(\d+)">
+          <ManagePostTags />
         </Route>
       </PostProvider>
     </main>
