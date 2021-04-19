@@ -47,6 +47,9 @@ export const EditCategory = () => {
                     Save Category
                 </Link>
             </Button>
+            <Button className="cancel">
+                <Link to={"/api/category"}>Cancel</Link>
+            </Button>
 
         </section>
     )
