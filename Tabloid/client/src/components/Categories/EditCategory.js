@@ -4,7 +4,7 @@ import { Button } from "reactstrap";
 import { Link, useParams } from "react-router-dom";
 
 export const EditCategory = () => {
-    const { editCategory, getCategoryById, getAllCategories } = useContext(CategoryContext);
+    const { editCategory, getCategoryById } = useContext(CategoryContext);
 
     const { categoryId } = useParams();
 

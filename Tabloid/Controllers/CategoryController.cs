@@ -34,7 +34,7 @@ namespace Tabloid.Controllers
             return Ok(cat);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("/delete/{id}")]
         public IActionResult Delete(int id)
         {
             _categoryRepository.Delete(id);

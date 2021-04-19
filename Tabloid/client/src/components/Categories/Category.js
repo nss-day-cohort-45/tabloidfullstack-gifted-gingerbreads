@@ -14,6 +14,11 @@ const Category = ({ category }) => {
                                 Edit Category
                 </Link>
                         </Button>
+                        <Button className="delete_button" variant="secondary" size="sm">
+                            <Link className="deleteCategory" to={`/category/delete/${category.id}`}>
+                                Delete Category
+                            </Link>
+                        </Button>
                     </p>
 
                 </CardBody>

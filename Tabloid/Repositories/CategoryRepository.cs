@@ -5,6 +5,7 @@ using System.Data;
 using System.Reflection.PortableExecutable;
 using Microsoft.Extensions.Configuration;
 using Tabloid.Utils;
+using Tabloid.Models;
 
 
 namespace Tabloid.Repositories
