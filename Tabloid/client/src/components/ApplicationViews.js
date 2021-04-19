@@ -6,6 +6,7 @@ import Register from "./Register";
 import Hello from "./Hello";
 import CategoryList from "./Categories/CategoryList";
 import CategoryProvider from "../providers/CategoryProvider"
+import CategoryForm from "./Categories/CategoryForm"
 
 
 export default function ApplicationViews() {
@@ -31,6 +32,12 @@ export default function ApplicationViews() {
           <CategoryList />
         </CategoryProvider>
       </Route>
+      <Route path="/category/addnew">
+        <CategoryProvider >
+          <CategoryForm />
+        </CategoryProvider>
+      </Route>
+
     </main>
   );
 };

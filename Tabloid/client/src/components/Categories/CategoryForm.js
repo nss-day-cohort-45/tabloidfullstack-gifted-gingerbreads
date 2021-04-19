@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { CategoryContext } from "../providers/CategoryProvider";
+import { CategoryContext } from "../../providers/CategoryProvider";
+import { Button } from "reactstrap";
+import { Link } from "react-router-dom";
 
 
-export const PostForm = () => {
+
+export const CategoryForm = () => {
     const { addCategory, getAllCategories } = useContext(CategoryContext);
 
 
@@ -26,6 +29,7 @@ export const PostForm = () => {
         addCategory({
             name: category.name,
         })
+            .then(getAllCategories());
     };
 
     return (
@@ -33,17 +37,17 @@ export const PostForm = () => {
             <h2 className="post_form_header">Category</h2>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="title">Name:</label>
+                    <label htmlFor="name">Name:</label>
                     <input
                         type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Name" value={category.name} />
                 </div>
             </fieldset>
+            <Button onClick={handleSave}>
+                <Link className="saveCategory" to={"/api/category"}>
+                    Save Category
+                </Link>
+            </Button>
 
-            <div className="savePost btn btn-primary" onClick={(event) => {
-                event.preventDefault();
-                handleSave()
-            }}>Save This Category
-            </div>
         </section>
     )
 };

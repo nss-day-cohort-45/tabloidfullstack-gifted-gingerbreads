@@ -38,7 +38,7 @@ export default function Header() {
                     style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="api/category">Category Management</NavLink>
+                  <NavLink tag={RRNavLink} to="/api/category">Category Management</NavLink>
                 </NavItem>
               </>
             }
