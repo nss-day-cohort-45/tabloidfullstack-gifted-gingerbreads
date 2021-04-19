@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 
 const CommentForm = () => {
-    const { matchedCommentId } = useParams();
+    const { commentId } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const history = useHistory();
     const { addComment, editComment, getCommentById } = useContext(CommentContext)
@@ -31,15 +31,15 @@ const CommentForm = () => {
 
     const handleClickSaveComment = () => {
         setIsLoading(true);
-        if (matchedCommentId) {
+        if (commentId) {
             editComment({
-                id: matchedCommentId,
+                id: commentId,
                 postId: parseInt(comment.postId),
                 userProfileId: parseInt(comment.userProfileId),
                 subject: comment.subject,
                 content: comment.content
             })
-                .then(() => history.push("/????"))
+                .then(() => history.push("/comments"))
         } else {
             addComment({
                 postId: parseInt(comment.postId),
@@ -51,22 +51,19 @@ const CommentForm = () => {
         }
     };
 
-
-
     useEffect(() => {
-        if (matchedCommentId) {
-            getCommentById(matchedCommentId)
-                .then(commentObject => {
-                    setComment(commentObject)
+        if (commentId) {
+            getCommentById(commentId)
+                .then(comment => {
+                    setComment(comment)
                     setIsLoading(false)
                 })
         } else {
             setIsLoading(false)
         }
-    }, []);
+    }, [])
 
 
-    useEffect(() => console.log("comment?", comment), [comment])
 
 
     //need ternary statement for "New Comment" on form 

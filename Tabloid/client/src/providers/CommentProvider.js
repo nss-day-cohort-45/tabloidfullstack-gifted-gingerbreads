@@ -23,7 +23,6 @@ export const CommentProvider = (props) => {
     const getCommentById = (commentId) => {
         return fetch(`/comment/${commentId}`)
             .then((res) => res.json())
-            .then(setComments);
     }
 
 
@@ -39,7 +38,7 @@ export const CommentProvider = (props) => {
 
 
     const editComment = (comment) => {
-        return fetch(`/comment/${comment.id}`, {
+        return fetch(`/comment/edit/${comment.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -51,7 +50,7 @@ export const CommentProvider = (props) => {
 
 
     const deleteComment = (commentId) => {
-        return fetch(`/comment/${commentId}`, {
+        return fetch(`/comments/${commentId}`, {
             method: "DELETE"
         })
     };
