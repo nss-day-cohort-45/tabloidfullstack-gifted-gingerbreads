@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { CommentContext } from "../../providers/CommentProvider";
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ const CommentForm = () => {
     const { matchedCommentId } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const history = useHistory();
-    const { addComment, editComment } = useContext(CommentContext)
+    const { addComment, editComment, getCommentById } = useContext(CommentContext)
 
     const [comment, setComment] = useState({
         postId: 0,
@@ -29,34 +29,23 @@ const CommentForm = () => {
 
 
 
-    const handleClickSaveComment = (event) => {
-        if (matchedCommentId) {
-            editComment({
-
-            })
-        }
-        event.preventDefault()
-        addComment(comment)
-            .then(() => history.push("/comments"))
-    }
-
-
-
     const handleClickSaveComment = () => {
         setIsLoading(true);
         if (matchedCommentId) {
             editComment({
-                id: familyHistory.id,
-                userId: userId,
-                condition: familyHistory.condition,
-                relativeId: parseInt(familyHistory.relativeId)
+                id: matchedCommentId,
+                postId: parseInt(comment.postId),
+                userProfileId: parseInt(comment.userProfileId),
+                subject: comment.subject,
+                content: comment.content
             })
-                .then(() => history.push("/FamilyHistory"))
+                .then(() => history.push("/????"))
         } else {
             addComment({
-                userId: userId,
-                condition: familyHistory.condition,
-                relativeId: parseInt(familyHistory.relativeId)
+                postId: parseInt(comment.postId),
+                userProfileId: comment.userProfileId,
+                subject: comment.subject,
+                content: comment.content
             })
                 .then(() => history.push("/comments"))
         }
@@ -64,7 +53,23 @@ const CommentForm = () => {
 
 
 
+    useEffect(() => {
+        if (matchedCommentId) {
+            getCommentById(matchedCommentId)
+                .then(commentObject => {
+                    setComment(commentObject)
+                    setIsLoading(false)
+                })
+        } else {
+            setIsLoading(false)
+        }
+    }, []);
 
+
+    useEffect(() => console.log("comment?", comment), [comment])
+
+
+    //need ternary statement for "New Comment" on form 
     return (
         <form className="CommentForm">
             <h2 className="CommentForm__title">New Comment</h2>

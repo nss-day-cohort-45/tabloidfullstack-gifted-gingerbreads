@@ -19,6 +19,14 @@ export const CommentProvider = (props) => {
     };
 
 
+
+    const getCommentById = (commentId) => {
+        return fetch(`/comment/${commentId}`)
+            .then((res) => res.json())
+            .then(setComments);
+    }
+
+
     const addComment = (comment) => {
         return fetch("/comment", {
             method: "POST",
@@ -51,7 +59,8 @@ export const CommentProvider = (props) => {
 
     return (
         <CommentContext.Provider value={{
-            comments, getAllCommentsByPostId, addComment, editComment, deleteComment
+            comments, getAllCommentsByPostId, getCommentById,
+            addComment, editComment, deleteComment
         }}>
             {props.children}
         </CommentContext.Provider>
