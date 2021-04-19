@@ -36,6 +36,10 @@ const CommentList = () => {
                     </div>
                 ))}
             </div>
+            <button onClick={() => {
+                history.push("/posts")
+            }}>Back to Posts
+            </button>
         </>
         //need a link back to the post 
     );
