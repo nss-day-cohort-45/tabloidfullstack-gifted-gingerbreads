@@ -6,6 +6,8 @@ import Register from "./Register";
 import Hello from "./Hello";
 import TagList from "./tags/TagList";
 import TagForm from "./tags/TagForm";
+import TagDelete from "./tags/TagDelete";
+import TagEdit from "./tags/TagEdit";
 import { TagProvider } from "../providers/TagProvider";
 
 export default function ApplicationViews() {
@@ -28,6 +30,18 @@ export default function ApplicationViews() {
         <Route path="/tag/create" exact>
           <TagProvider>
             <TagForm />
+          </TagProvider>
+        </Route>
+
+        <Route path="/tag/delete/:tagId(\d+)" exact>
+          <TagProvider>
+            <TagDelete />
+          </TagProvider>
+        </Route>
+
+        <Route path="/tag/edit/:tagId(\d+)" exact>
+          <TagProvider>
+            <TagEdit />
           </TagProvider>
         </Route>
 

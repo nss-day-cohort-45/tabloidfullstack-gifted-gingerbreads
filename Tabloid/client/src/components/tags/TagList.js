@@ -13,9 +13,7 @@ const TagList = () => {
 
     const createTagPage = () => {
         history.push("/tag/create")
-    }
-
-
+    };
 
     return (
 
