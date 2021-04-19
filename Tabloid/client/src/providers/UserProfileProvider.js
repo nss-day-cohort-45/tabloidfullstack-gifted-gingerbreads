@@ -13,6 +13,30 @@ export function UserProfileProvider(props) {
 
   const [userProfiles, setUserProfiles] = useState([])
 
+  const getAllUserProfiles = () => {
+    return fetch(`${apiUrl}`)
+    .then(res => res.json())
+    .then(setUserProfiles)
+  }
+// const loadJokesForType = (type) => {
+//   const url = `https://official-joke-api.appspot.com/jokes/${type}/ten`;
+//   fetch(url).then(resp => resp.json())
+//     .then(jokes => {
+//       setJokes(jokes);
+//       setSelectedType(type);
+//     });
+// };
+
+// const getUserProfile = (firebaseUserId) => {
+//   return getToken().then((token) =>
+//     fetch(`${apiUrl}/${firebaseUserId}`, {
+//       method: "GET",
+//       headers: {
+//         Authorization: `Bearer ${token}`
+//       }
+//     }).then(resp => resp.json()));
+// };
+
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
   useEffect(() => {
     firebase.auth().onAuthStateChanged((u) => {
@@ -55,8 +79,9 @@ export function UserProfileProvider(props) {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      }).then(resp => resp.json()))
-      .then(setUserProfiles)
+      }).then(resp => {
+        console.log("testing", resp)
+        return resp.json()}));
   };
 
   const saveUser = (userProfile) => {
@@ -72,7 +97,7 @@ export function UserProfileProvider(props) {
   };
 
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfile }}>
+    <UserProfileContext.Provider value={{ userProfiles, isLoggedIn, login, logout, register, getToken, getUserProfile, getAllUserProfiles }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark"/>}

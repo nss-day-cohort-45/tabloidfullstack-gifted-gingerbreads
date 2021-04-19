@@ -8,9 +8,9 @@ export const UserProfile = ({userProfile}) => {
 
   return (
     <section className="userProfile">
-      <div class Name="user__fullName">{userProfile.fullName}</div>
-      <div class Name="user__displayName">{userProfile.displayName}</div>
-      <div class Name="user__userType">{userProfile.userType.Name}</div>
+      <div className="user__fullName">{userProfile.fullName}</div>
+      <div className="user__displayName">{userProfile.displayName}</div>
+      <div className="user__userType">{userProfile.userType.Name}</div>
     </section>
   )
 }
