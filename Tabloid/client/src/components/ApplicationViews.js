@@ -8,6 +8,10 @@ import { CommentProvider } from "../providers/CommentProvider";
 import CommentList from "./Comments.js/CommentList";
 import CommentForm from "./Comments.js/CommentForm";
 
+import PostList from "./Posts/PostList";
+import UserPostList from "./Posts/UserPostsList";
+import PostDetails from "./Posts/PostDetails"
+import { PostProvider } from "../providers/PostProvider";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -42,6 +46,20 @@ export default function ApplicationViews() {
         </CommentProvider>
 
       </Switch>
+
+      <PostProvider>
+        <Route path="/posts">
+          {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/userPosts">
+          {isLoggedIn ? <UserPostList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route exact path="/post/:postId(\d+)">
+          {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
+        </Route>
+      </PostProvider>
     </main>
   );
 };
