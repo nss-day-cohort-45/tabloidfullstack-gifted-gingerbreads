@@ -27,13 +27,13 @@ export const TagProvider = (props) => {
         });
     };
 
-    const editTag = tagId => {
-        return fetch(`/api/tag/edit/${tagId}}`, {
+    const editTag = tag => {
+        return fetch(`/api/tag/edit/${tag.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(tagId)
+            body: JSON.stringify(tag)
         })
             .then(getAllTags)
     };

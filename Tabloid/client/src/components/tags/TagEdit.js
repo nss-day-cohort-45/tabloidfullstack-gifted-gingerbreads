@@ -5,58 +5,45 @@ import { useParams, useHistory } from "react-router-dom"
 import Card from "reactstrap/lib/Card";
 
 const TagEdit = () => {
-    const { editTag, getTagById } = useContext(TagContext);
-    const history = useHistory();
+    const { editTag, getTagById, getAllTags } = useContext(TagContext);
 
-    useEffect(() => {
-        if (tagId) {
-            getTagById(tagId)
-                .then((tag) => {
-                    setTag(tag)
-                    setIsLoading(false)
-                })
-        }
-        else {
-            setIsLoading(false);
-        }
-    }, []);
+    // Returns an object
+    const { tagId } = useParams();
+    const history = useHistory();
 
     // Edit, hold onto state of tag in this view
     const [tag, setTag] = useState({
         name: ""
     });
 
-    // Wait for data before button is active
-    const [isLoading, setIsLoading] = useState(true);
-
-    // Returns an object
-    const { tagId } = useParams();
-
-
     // When the input field changes, update state
     // Causes a re-render and updates the DOM
     const handleControlledInputChange = (e) => {
         // When you change a state object or array,
         // Always create a copy to make changes, and then set the state.
-
-        const newTag = { ...tag } // tag is an object with properties
+        const newTag = { ...tag }; // tag is an object with properties
 
         // Set the property to the new value
-        newTag[e.target.name] = e.target.value
+        newTag[e.target.id] = e.target.value;
 
         // Update the state with the new user's input
-        setTag(newTag)
-    }
+        setTag(newTag);
+    };
 
+    useEffect(() => {
+        getTagById(tagId)
+            .then((response) => {
+                setTag(response)
+            })
+    }, []);
 
     const handleEdit = () => {
-        if (tagId) {
-            editTag({
-                id: tag.id,
-                name: tag.name
-            })
-                .then(() => history.push(`/tag/edit/${tag.id}`))
-        };
+        console.log("Save edit")
+        editTag({
+            id: tagId,
+            name: tag.name
+        })
+            .then(() => history.push("/tags"))
     };
 
     const BackToTagsPage = () => {
@@ -67,7 +54,7 @@ const TagEdit = () => {
         <div>
             <Form>
                 <h2>Edit the tag "{tag.name}"</h2>
-                <input placeholder={tag.name} id="name"></input>
+                <input onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder={tag.name} id="name"></input>
                 <Button onClick={handleEdit}>Save Changes</Button>
                 <Button onClick={BackToTagsPage}>Go Back</Button>
             </Form>
