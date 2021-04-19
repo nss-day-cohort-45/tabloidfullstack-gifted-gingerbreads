@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CommentContext } from "../../providers/CommentProvider";
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -13,14 +13,12 @@ const CommentList = () => {
          will see the value ={{}} section. Those {} correspond to the {} above
     */
 
-
     useEffect(() => {
-        getAllCommentsByPostId(postId);
+        getAllCommentsByPostId(postId)
     }, []);
 
     return (
-        //need title of post at top of page
-        //may need to change the format of date time to MM/DD/YYYY
+        //need to change the format of date time to MM/DD/YYYY
         <>
             <div>
                 {comments.map((comment) => (
@@ -41,7 +39,6 @@ const CommentList = () => {
             }}>Back to Posts
             </button>
         </>
-        //need a link back to the post 
     );
 };
 

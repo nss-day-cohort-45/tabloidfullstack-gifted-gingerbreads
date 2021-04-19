@@ -23,9 +23,11 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                           SELECT c.Id, c.PostId, c.UserProfileId, c.Subject, c.Content, c.CreateDateTime,
-                                 up.Id AS UserProfileId, up.DisplayName
+                                 up.Id AS UserProfileId, up.DisplayName,
+                                 p.Id AS PostId, p.Title AS PostTitle
                             FROM Comment c
                           LEFT JOIN UserProfile up ON c.UserProfileId = up.Id
+                          LEFT JOIN Post p ON c.PostId = p.Id
                           WHERE c.PostId = @Id
                           ORDER BY CreateDateTime";
 
@@ -40,6 +42,11 @@ namespace Tabloid.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             PostId = id,
+                            Post = new Post()
+                            {
+                                Id = DbUtils.GetInt(reader, "PostId"),
+                                Title = DbUtils.GetString(reader, "PostTitle" ),
+                            },
                             Subject = DbUtils.GetString(reader, "Subject"),
                             Content = DbUtils.GetString(reader, "Content"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),

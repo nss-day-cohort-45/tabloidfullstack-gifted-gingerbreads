@@ -12,9 +12,9 @@ export const PostProvider = (props) => {
   };
 
   const getUserPosts = (userId) => {
-      return fetch(`https://localhost:5001/api/Post/GetByUser?userId=${userId}`)
-        .then((res) => res.json())
-        .then(setPosts);
+    return fetch(`https://localhost:5001/api/Post/GetByUser?userId=${userId}`)
+      .then((res) => res.json())
+      .then(setPosts);
   }
 
   const getPostDetails = (postId => {
