@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { UserProfileContext } from "../providers/UserProfileProvider";
-import { UserProfileProvider } from "../providers/UserProfileProvider"
-import { UserProfileList } from "./userprofiles/UserProfileList"
+
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
+
+import { UserProfileContext } from "../providers/UserProfileProvider";
+import { UserProfileProvider } from "../providers/UserProfileProvider"
+import { UserProfileList } from "./userprofiles/UserProfileList"
+import { UserProfileDetails } from "./userprofiles/UserProfileDetails"
+
 import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
 import PostDetails from "./Posts/PostDetails"
@@ -33,6 +37,9 @@ export default function ApplicationViews() {
           <Route exact path="/userProfiles">
             <UserProfileList />
           </Route>
+          <Route exact path="/userProfiles/detail/:userProfileId(\d+)">
+                    <UserProfileDetails />
+                </Route>
         </UserProfileProvider>
       </Switch>
 
