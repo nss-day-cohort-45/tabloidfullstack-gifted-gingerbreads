@@ -8,5 +8,7 @@ namespace Tabloid.Repositories
         List<Post> GetAll();
 
         List<Post> GetUserPosts(int userProfileId);
+
+        List<Post> GetPostById(int PostId);
     }
 }

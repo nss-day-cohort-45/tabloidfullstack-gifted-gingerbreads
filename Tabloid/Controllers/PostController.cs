@@ -22,8 +22,8 @@ namespace Tabloid.Controllers
             return Ok(_postRepository.GetAll());
         }
 
-        [HttpGet("{userId}")]
-        public IActionResult Get(int userId)
+        [HttpGet("GetByUser")]
+        public IActionResult GetByUser(int userId)
         {
             var userPosts = _postRepository.GetUserPosts(userId);
             if (userPosts == null)
@@ -31,6 +31,17 @@ namespace Tabloid.Controllers
                 return NotFound();
             }
             return Ok(userPosts);
+        }
+
+        [HttpGet("GetById")]
+        public IActionResult GetById(int postId)
+        {
+            var post = _postRepository.GetPostById(postId);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
         }
     }
 }

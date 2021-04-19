@@ -15,9 +15,9 @@ namespace Tabloid.Models
 
         public string ImageLocation { get; set; }
 
-        public DateTime CreateDateTime { get; set; }
+        public string CreateDateTime { get; set; }
 
-        public DateTime PublishDateTime { get; set; }
+        public string PublishDateTime { get; set; }
 
         public bool IsApproved { get; set; }
 
