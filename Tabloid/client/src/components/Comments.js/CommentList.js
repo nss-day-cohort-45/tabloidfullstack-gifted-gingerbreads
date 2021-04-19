@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { CommentContext } from "../../providers/CommentProvider";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 
 const CommentList = () => {
     const history = useHistory();
+    const { postId } = useParams();
     const { comments, getAllCommentsByPostId } = useContext(CommentContext);
     /* 
         Above: Object destructoring, is in {} because is pulling out specific properties 
@@ -14,7 +15,7 @@ const CommentList = () => {
 
 
     useEffect(() => {
-        getAllCommentsByPostId();
+        getAllCommentsByPostId(postId);
     }, []);
 
     return (

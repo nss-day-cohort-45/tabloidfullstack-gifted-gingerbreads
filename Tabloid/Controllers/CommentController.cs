@@ -19,7 +19,7 @@ namespace Tabloid.Controllers
 
 
 
-        [HttpGet("/comments")]
+        [HttpGet("/comments/{postId}")]
         public IActionResult Get(int PostId)
         {
             return Ok(_commentRepository.GetAllCommentsByPostId(PostId));

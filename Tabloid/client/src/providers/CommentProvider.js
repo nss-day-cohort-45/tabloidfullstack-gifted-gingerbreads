@@ -12,8 +12,8 @@ export const CommentProvider = (props) => {
     */
 
 
-    const getAllCommentsByPostId = () => {
-        return fetch("/comment")      // endpoints may need to change
+    const getAllCommentsByPostId = (postId) => {
+        return fetch(`/comments/${postId}`)      // endpoints may need to change
             .then((res) => res.json())
             .then(setComments);
     };

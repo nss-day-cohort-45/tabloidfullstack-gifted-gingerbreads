@@ -30,22 +30,21 @@ export default function ApplicationViews() {
         <Route path="/register">
           <Register />
         </Route>
-
-        <CommentProvider>
-          <Route path="/comments" exact>
-            <CommentList />
-          </Route>
-
-          <Route path="/comment/create" exact>
-            <CommentForm />
-          </Route>
-
-          <Route path="/comment/edit/:commentId(\d+)" exact>
-            <CommentForm />
-          </Route>
-        </CommentProvider>
-
       </Switch>
+
+      <CommentProvider>
+        <Route path="/comments/:postId(\d+)" exact>
+          {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/comment/create" exact>
+          {isLoggedIn ? <CommentForm /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/comment/edit/:commentId(\d+)" exact>
+          {isLoggedIn ? <CommentForm /> : <Redirect to="/login" />}
+        </Route>
+      </CommentProvider>
 
       <PostProvider>
         <Route path="/posts">
@@ -60,6 +59,8 @@ export default function ApplicationViews() {
           {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
         </Route>
       </PostProvider>
+
     </main>
+
   );
 };
