@@ -28,7 +28,10 @@ export default function Header() {
               <NavItem>
                 <NavLink tag={RRNavLink} to="/">Home</NavLink>
                 <NavLink tag={RRNavLink} to="/userProfiles">User Profiles</NavLink>
+                <NavLink tag={RRNavLink} to="/Posts">Posts</NavLink>
+                <NavLink tag={RRNavLink} to="/UserPosts">My Posts</NavLink>
               </NavItem>
+
             }
           </Nav>
           <Nav navbar>
