@@ -10,6 +10,10 @@ export const CategoryProvider = (props) => {
             .then((res) => res.json())
             .then(setCategories);
     };
+    const getCategoryById = (id) => {
+        return fetch(`/api/category/${id}`)
+            .then((res) => res.json())
+    };
 
     const addCategory = (category) => {
         return fetch("/api/category", {
@@ -20,8 +24,19 @@ export const CategoryProvider = (props) => {
             body: JSON.stringify(category),
         });
     };
+
+    const editCategory = (category) => {
+        return fetch(`/api/Category/${category.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(category),
+        })
+            .then(getAllCategories())
+    };
     return (
-        <CategoryContext.Provider value={{ categories, getAllCategories, addCategory }}>
+        <CategoryContext.Provider value={{ categories, getAllCategories, addCategory, editCategory, getCategoryById }}>
             {props.children}
         </CategoryContext.Provider>
     );

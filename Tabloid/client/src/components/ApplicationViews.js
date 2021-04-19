@@ -7,6 +7,7 @@ import Hello from "./Hello";
 import CategoryList from "./Categories/CategoryList";
 import CategoryProvider from "../providers/CategoryProvider"
 import CategoryForm from "./Categories/CategoryForm"
+import EditCategory from "./Categories/EditCategory"
 
 
 export default function ApplicationViews() {
@@ -35,6 +36,11 @@ export default function ApplicationViews() {
       <Route path="/category/addnew">
         <CategoryProvider >
           <CategoryForm />
+        </CategoryProvider>
+      </Route>
+      <Route path="/category/:categoryId(\d+)">
+        <CategoryProvider>
+          <EditCategory />
         </CategoryProvider>
       </Route>
 
