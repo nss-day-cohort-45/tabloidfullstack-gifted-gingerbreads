@@ -37,9 +37,9 @@ export default function ApplicationViews() {
           <Route exact path="/userProfiles">
             <UserProfileList />
           </Route>
-          <Route exact path="/userProfiles/detail/:userProfileId(\d+)">
-                    <UserProfileDetails />
-                </Route>
+          <Route exact path="/userProfiles/detail/getById/:userProfileId(\d+)">
+              <UserProfileDetails />
+          </Route>
         </UserProfileProvider>
       </Switch>
 
