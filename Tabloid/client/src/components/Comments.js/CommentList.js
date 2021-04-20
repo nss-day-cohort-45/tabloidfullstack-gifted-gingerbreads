@@ -18,7 +18,6 @@ const CommentList = () => {
     }, []);
 
     return (
-        //need to change the format of date time to MM/DD/YYYY
         <>
             <div>
                 {comments.map((comment) => (
@@ -30,6 +29,10 @@ const CommentList = () => {
                         <button onClick={() => {
                             history.push(`/comment/edit/${comment.id}`)
                         }}>Edit
+                        </button>
+                        <button onClick={() => {
+                            history.push(`/comment/${comment.id}`)
+                        }}>Delete
                         </button>
                     </div>
                 ))}

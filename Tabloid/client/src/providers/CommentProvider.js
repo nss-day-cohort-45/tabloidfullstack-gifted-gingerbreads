@@ -13,7 +13,7 @@ export const CommentProvider = (props) => {
 
 
     const getAllCommentsByPostId = (postId) => {
-        return fetch(`/comments/${postId}`)      // endpoints may need to change
+        return fetch(`/comments/${postId}`)
             .then((res) => res.json())
             .then(setComments);
     };
@@ -50,7 +50,7 @@ export const CommentProvider = (props) => {
 
 
     const deleteComment = (commentId) => {
-        return fetch(`/comments/${commentId}`, {
+        return fetch(`/comment/delete/${commentId}`, {
             method: "DELETE"
         })
     };

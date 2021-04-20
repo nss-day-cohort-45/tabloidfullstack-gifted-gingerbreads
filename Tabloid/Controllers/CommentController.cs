@@ -26,13 +26,23 @@ namespace Tabloid.Controllers
         }
 
 
+        [HttpGet("/comment/{commentId}")]
+        public ActionResult Details(int commentId)
+        {
+            var comment = _commentRepository.GetCommentById(commentId);
+            if (comment == null)
+                { 
+                    return NotFound();
+                }
+            return Ok(comment);
+        }
 
 
 
-        [HttpPost("/create")]
+        [HttpPost("/comment/{postId}/create")]
         public IActionResult Comment(Comment comment)
         {
-            comment.CreateDateTime = DateTime.Now;
+            comment.CreateDateTime = DateTime.Now.ToString("MM/dd/yyyy");
             _commentRepository.Add(comment);
             return CreatedAtAction("Get", new { id = comment.Id }, comment);
         }
@@ -57,7 +67,7 @@ namespace Tabloid.Controllers
 
 
 
-        [HttpDelete("/comment/{id}")]
+        [HttpDelete("/comment/delete/{id}")]
         public IActionResult Delete(int id)
         {
             _commentRepository.Delete(id);

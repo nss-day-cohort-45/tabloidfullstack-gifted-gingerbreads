@@ -32,6 +32,9 @@ const PostDetails = () => {
       <button onClick={() => {
         history.push(`/comments/${postId}`)
       }}>View Comments</button>
+      <button onClick={() => {
+        history.push(`/comment/${postId}/create`)
+      }}>Add A Comment</button>
     </>
   );
 };

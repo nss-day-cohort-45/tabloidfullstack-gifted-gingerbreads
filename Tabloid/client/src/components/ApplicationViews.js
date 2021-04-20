@@ -7,6 +7,7 @@ import Hello from "./Hello";
 import { CommentProvider } from "../providers/CommentProvider";
 import CommentList from "./Comments.js/CommentList";
 import CommentForm from "./Comments.js/CommentForm";
+import CommentDeletionConfirmation from "./Comments.js/CommentDeletionConfirmation";
 
 import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
@@ -37,12 +38,16 @@ export default function ApplicationViews() {
           {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/comment/create" exact>
+        <Route path="/comment/:postId(\d+)/create" exact>
           {isLoggedIn ? <CommentForm /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/comment/edit/:commentId(\d+)" exact>
           {isLoggedIn ? <CommentForm /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/comment/:commentId(\d+)" exact>
+          {isLoggedIn ? <CommentDeletionConfirmation /> : <Redirect to="/login" />}
         </Route>
       </CommentProvider>
 
