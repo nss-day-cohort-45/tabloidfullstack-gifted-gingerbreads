@@ -23,7 +23,7 @@ export default function Header() {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            { /* When isLoggedIn === true, we will render the Home link */ }
+            { /* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn &&
               <NavItem>
                 <NavLink tag={RRNavLink} to="/">Home</NavLink>
@@ -39,6 +39,9 @@ export default function Header() {
                 <NavItem>
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/api/category">Category Management</NavLink>
                 </NavItem>
               </>
             }
