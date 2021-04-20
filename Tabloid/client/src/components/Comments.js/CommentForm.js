@@ -32,7 +32,7 @@ const CommentForm = () => {
             subject: comment.subject,
             content: comment.content
         })
-            .then(() => history.push(`/comments/${comment.postId}`))
+            .then(() => history.push(`/comments/${postId}`))
     };
 
 
@@ -63,12 +63,12 @@ const CommentForm = () => {
 
             <button className="btn btn-primary"
                 onClick={handleClickSaveComment}>
-                Save
-          </button>
+                Save</button>
+            <button onClick={() => {
+                history.push(`/comments/${comment.postId}`)
+            }}>Cancel</button>
         </form>
     )
 };
 
-// for save after editing a comment should be redirected to the comment's detail page(?)
-// going to need to add a cancel button for edit only -- if the cancel button is clicked need to be redirect to the list page 
 export default CommentForm;

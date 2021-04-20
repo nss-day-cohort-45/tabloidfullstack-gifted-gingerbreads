@@ -27,7 +27,7 @@ export const CommentProvider = (props) => {
 
 
     const addComment = (comment) => {
-        return fetch("/comment", {
+        return fetch(`/comment/${comment.postId}/create`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
