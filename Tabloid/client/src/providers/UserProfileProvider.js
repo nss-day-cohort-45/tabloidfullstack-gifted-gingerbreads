@@ -84,6 +84,19 @@ export function UserProfileProvider(props) {
       }).then(resp => resp.json()));
   };
 
+  //deactivate method resembles update method
+  // const updateTrack = track => {
+  //   return fetch(`http://localhost:8088/tracks/${track.id}?_expand=demo`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify(track)
+  //   })
+  //     .then(getTracks)
+  // }
+
+
   return (
     <UserProfileContext.Provider value={{ userProfiles, isLoggedIn, login, logout, register, getToken, getUserProfile, getAllUserProfiles, getUserProfileById}}>
       {isFirebaseReady
