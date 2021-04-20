@@ -44,7 +44,7 @@ namespace Tabloid.Controllers
         {
             comment.CreateDateTime = DateTime.Now.ToString("MM/dd/yyyy");
             _commentRepository.Add(comment);
-            return CreatedAtAction("Get", new { id = comment.Id }, comment);
+            return CreatedAtAction("Details", new { commentId = comment.Id }, comment);
         }
 
 

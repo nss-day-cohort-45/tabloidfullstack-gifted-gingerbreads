@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { CommentContext } from "../../providers/CommentProvider";
 import { useHistory, useParams } from 'react-router-dom';
 
+
 const CommentDeletionConfirmation = () => {
     const history = useHistory();
     const { commentId } = useParams();
     const { getCommentById, deleteComment } = useContext(CommentContext);
-
     const [comment, setComment] = useState({});
+
 
     useEffect(() => {
         getCommentById(commentId)
@@ -21,6 +22,7 @@ const CommentDeletionConfirmation = () => {
                 history.push(`/comments/${comment.postId}`)
             })
     }
+
 
     return (
         <>

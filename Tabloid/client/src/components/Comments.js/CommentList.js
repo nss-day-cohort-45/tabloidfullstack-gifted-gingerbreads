@@ -13,9 +13,11 @@ const CommentList = () => {
          will see the value ={{}} section. Those {} correspond to the {} above
     */
 
+
     useEffect(() => {
         getAllCommentsByPostId(postId)
     }, []);
+
 
     return (
         <>

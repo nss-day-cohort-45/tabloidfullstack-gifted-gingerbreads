@@ -32,12 +32,12 @@ const CommentForm = () => {
             subject: comment.subject,
             content: comment.content
         })
-            .then(() => history.push(`/comments/${postId}`))
+            .then(() => history.push(`/comments/${comment.postId}`))
     };
 
 
     return (
-        <form className="CommentForm">
+        <div className="CommentForm">
             <h2 className="CommentForm__title">New Comment</h2>
             <fieldset>
                 <div className="form-group">
@@ -64,10 +64,7 @@ const CommentForm = () => {
             <button className="btn btn-primary"
                 onClick={handleClickSaveComment}>
                 Save</button>
-            <button onClick={() => {
-                history.push(`/comments/${comment.postId}`)
-            }}>Cancel</button>
-        </form>
+        </div>
     )
 };
 
