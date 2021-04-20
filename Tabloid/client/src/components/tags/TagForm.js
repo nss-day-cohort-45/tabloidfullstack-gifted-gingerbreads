@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { TagContext } from "../../providers/TagProvider.js";
-import { tagPropType } from "reactstrap/lib/utils";
 
 const TagForm = () => {
     const { addTag } = useContext(TagContext);
