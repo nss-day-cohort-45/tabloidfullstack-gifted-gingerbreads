@@ -3,15 +3,13 @@ import { CommentContext } from "../../providers/CommentProvider";
 import { useHistory, useParams } from 'react-router-dom';
 
 
-const CommentForm = () => {
+const CommentCreateForm = () => {
     const history = useHistory();
     const { addComment } = useContext(CommentContext)
-    const userProfileId = JSON.parse(sessionStorage.userProfile).id
     const { postId } = useParams();
 
     const [comment, setComment] = useState({
         postId,
-        userProfileId,
         subject: "",
         content: "",
     });
@@ -28,7 +26,6 @@ const CommentForm = () => {
     const handleClickSaveComment = () => {
         addComment({
             postId: postId,
-            userProfileId: userProfileId,
             subject: comment.subject,
             content: comment.content
         })
@@ -68,4 +65,4 @@ const CommentForm = () => {
     )
 };
 
-export default CommentForm;
+export default CommentCreateForm;

@@ -6,7 +6,8 @@ import Register from "./Register";
 import Hello from "./Hello";
 import { CommentProvider } from "../providers/CommentProvider";
 import CommentList from "./Comments.js/CommentList";
-import CommentForm from "./Comments.js/CommentForm";
+import CommentCreateForm from "./Comments.js/CommentCreateForm";
+// import CommentEditForm from "./Comments.js/CommentEditForm";
 import CommentDeletionConfirmation from "./Comments.js/CommentDeletionConfirmation";
 
 import PostList from "./Posts/PostList";
@@ -41,12 +42,12 @@ export default function ApplicationViews() {
           </Route>
 
           <Route path="/comment/:postId(\d+)/create" exact>
-            {isLoggedIn ? <CommentForm /> : <Redirect to="/login" />}
+            {isLoggedIn ? <CommentCreateForm /> : <Redirect to="/login" />}
           </Route>
 
-          <Route path="/comment/edit/:commentId(\d+)" exact>
-            {isLoggedIn ? <CommentForm /> : <Redirect to="/login" />}
-          </Route>
+          {/* <Route path="/comment/edit/:commentId(\d+)" exact>
+            {isLoggedIn ? <CommentEditForm /> : <Redirect to="/login" />}
+          </Route> */}
 
           <Route path="/comment/:commentId(\d+)" exact>
             {isLoggedIn ? <CommentDeletionConfirmation /> : <Redirect to="/login" />}

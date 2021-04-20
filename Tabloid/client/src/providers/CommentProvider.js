@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useContext } from "react";
+import { UserProfileContext } from "./UserProfileProvider";
+
 
 export const CommentContext = React.createContext();
 
 export const CommentProvider = (props) => {
+    const { getToken } = useContext(UserProfileContext);
     const [comments, setComments] = useState([]);
     /*
         Above line: Array destructoring, useState is returning what is declared 
@@ -19,33 +22,50 @@ export const CommentProvider = (props) => {
     };
 
 
-
     const getCommentById = (commentId) => {
         return fetch(`/comment/${commentId}`)
             .then((res) => res.json())
     }
 
 
-    const addComment = (comment) => {
-        return fetch(`/comment/${comment.postId}/create`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(comment),
-        });
-    };
+
+    const addComment = (comment) =>
+        getToken().then((token) =>
+            fetch(`/comment/${comment.postId}/create`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(comment),
+            }).then(resp => {
+                if (resp.ok) {
+                    return resp.json();
+                }
+                throw new Error("Unauthorized");
+            })
+        );
 
 
-    const editComment = (comment) => {
-        return fetch(`/comment/edit/${comment.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(comment),
-        })
-    }
+
+    const editComment = (comment) =>
+        getToken().then((token) =>
+            fetch(`/comment/edit/${comment.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(comment),
+            }).then(resp => {
+                if (resp.ok) {
+                    return resp.json();
+                }
+                throw new Error("Unauthorized");
+            })
+        );
+
+
 
 
 
@@ -54,6 +74,7 @@ export const CommentProvider = (props) => {
             method: "DELETE"
         })
     };
+
 
 
     return (

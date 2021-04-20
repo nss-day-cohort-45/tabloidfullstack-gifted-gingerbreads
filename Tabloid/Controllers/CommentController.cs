@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Claims;
 using Tabloid.Models;
 using Tabloid.Repositories;
+
+
 
 namespace Tabloid.Controllers
 {
@@ -10,9 +13,12 @@ namespace Tabloid.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepository _commentRepository;
-        public CommentController(ICommentRepository commentRepository)
+        private readonly IUserProfileRepository _userProfileRepository;
+
+        public CommentController(ICommentRepository commentRepository, IUserProfileRepository userProfileRepository)
         {
             _commentRepository = commentRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
 
@@ -24,6 +30,9 @@ namespace Tabloid.Controllers
         {
             return Ok(_commentRepository.GetAllCommentsByPostId(PostId));
         }
+
+
+
 
 
         [HttpGet("/comment/{commentId}")]
@@ -39,9 +48,13 @@ namespace Tabloid.Controllers
 
 
 
+
+
         [HttpPost("/comment/{postId}/create")]
         public IActionResult Comment(Comment comment)
         {
+            var currentUserProfile = GetCurrentUserProfile();
+            comment.UserProfileId = currentUserProfile.Id;
             comment.CreateDateTime = DateTime.Now.ToString("MM/dd/yyyy");
             _commentRepository.Add(comment);
             return CreatedAtAction("Details", new { commentId = comment.Id }, comment);
@@ -72,6 +85,16 @@ namespace Tabloid.Controllers
         {
             _commentRepository.Delete(id);
             return NoContent();
+        }
+
+
+
+
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }
