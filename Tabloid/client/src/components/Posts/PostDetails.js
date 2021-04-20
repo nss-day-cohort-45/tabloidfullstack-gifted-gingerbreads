@@ -7,8 +7,6 @@ const PostDetails = () => {
 
     let { postId } = useParams()
 
-    console.log(posts[0]?.imageLocation)
-
     useEffect(() => {
         getPostDetails(postId);
     }, []);
