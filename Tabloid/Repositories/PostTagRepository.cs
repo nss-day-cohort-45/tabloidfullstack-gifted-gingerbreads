@@ -12,7 +12,7 @@ namespace Tabloid.Repositories
     {
         public PostTagRepository(IConfiguration config) : base(config) { }
 
-        public void GetAllTagsForPost(PostTag postTag)
+        public void GetAllTagsForPost(int postTag)
         {
             using (SqlConnection conn = Connection)
             {
@@ -104,6 +104,11 @@ namespace Tabloid.Repositories
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        public void GetAllTagsForPost(PostTag postTag)
+        {
+            throw new NotImplementedException();
         }
 
         // Get all tags for post

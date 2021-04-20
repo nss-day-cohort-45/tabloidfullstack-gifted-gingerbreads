@@ -21,9 +21,9 @@ namespace Tabloid.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int postId)
         {
-            return Ok(_postTagRepo.GetAllTagsForPost());
+            return Ok(_postTagRepo.GetAllTagsForPost(postId));
         }
     }
 }
