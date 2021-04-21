@@ -23,11 +23,8 @@ namespace Tabloid
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
-<<<<<<< HEAD
             services.AddTransient<ICommentRepository, CommentRepository>();
-=======
             services.AddTransient<ICategoryRepository, CategoryRepository>();
->>>>>>> main
             services.AddTransient<IPostRepository, PostRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
