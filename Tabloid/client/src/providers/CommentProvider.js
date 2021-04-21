@@ -50,7 +50,7 @@ export const CommentProvider = (props) => {
 
     const editComment = (comment) =>
         getToken().then((token) =>
-            fetch(`/comment/edit/${comment.id}`, {
+            fetch(`/comment/${comment.id}/edit`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,

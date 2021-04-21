@@ -64,14 +64,15 @@ namespace Tabloid.Controllers
 
 
 
-        [HttpPut("/comment/edit/{id}")]
+        [HttpPut("/comment/{commentId}/edit")]
         public IActionResult Put(int id, Comment comment)
         {
             if (id != comment.Id)
             {
                 return BadRequest();
             }
-
+            var currentUserProfile = GetCurrentUserProfile();
+            comment.UserProfileId = currentUserProfile.Id;
             _commentRepository.Update(comment);
             return NoContent();
         }
