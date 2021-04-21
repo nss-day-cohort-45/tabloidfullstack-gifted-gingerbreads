@@ -33,7 +33,7 @@ namespace Tabloid.Controllers
             return Ok(userPosts);
         }
 
-        [HttpGet("GetById/{postId}")]
+        [HttpGet("GetById")]
         public IActionResult GetById(int postId)
         {
             var post = _postRepository.GetPostById(postId);
