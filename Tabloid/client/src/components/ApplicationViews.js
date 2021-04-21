@@ -10,6 +10,11 @@ import CommentCreateForm from "./Comments.js/CommentCreateForm";
 // import CommentEditForm from "./Comments.js/CommentEditForm";
 import CommentDeletionConfirmation from "./Comments.js/CommentDeletionConfirmation";
 
+import CategoryList from "./Categories/CategoryList";
+import CategoryProvider from "../providers/CategoryProvider"
+import CategoryForm from "./Categories/CategoryForm"
+import EditCategory from "./Categories/EditCategory"
+import DeleteCategory from "./Categories/DeleteCategory"
 import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
 import PostDetails from "./Posts/PostDetails"
@@ -33,6 +38,27 @@ export default function ApplicationViews() {
           <Register />
         </Route>
       </Switch>
+      <Route path="/api/category">
+        <CategoryProvider >
+          <CategoryList />
+        </CategoryProvider>
+      </Route>
+      <Route path="/category/addnew">
+        <CategoryProvider >
+          <CategoryForm />
+        </CategoryProvider>
+      </Route>
+      <Route path="/category/:categoryId(\d+)">
+        <CategoryProvider>
+          <EditCategory />
+        </CategoryProvider>
+      </Route>
+      <Route path="/category/delete/:categoryId(\d+)">
+        <CategoryProvider>
+          <DeleteCategory />
+        </CategoryProvider>
+      </Route>
+
 
 
       <PostProvider>
