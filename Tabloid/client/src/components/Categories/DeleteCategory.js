@@ -6,7 +6,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 
 const DeleteCategory = () => {
     const { deleteCategory, getCategoryById } = useContext(CategoryContext);
-    const { getPostsByCategoryId } = useContext(PostContext);
+    const { getPostsByCategoryId, posts } = useContext(PostContext);
 
     const { categoryId } = useParams();
 
@@ -25,19 +25,13 @@ const DeleteCategory = () => {
 
 
     const handleDelete = () => {
-        const CatIdArray = getPostsByCategoryId.map(p => {
-            return p.categoryId
-        })
-        console.log(CatIdArray)
-
-        for (const cat of CatIdArray) {
-            if (cat === categoryId) {
-                window.alert("This Category is being used By a post.  Cannot delete.")
-            }
-            else {
-                deleteCategory(category)
-                    .then(history.pushState("/api/category"))
-            }
+        console.log(posts)
+        if (posts.length === 0) {
+            deleteCategory(category)
+                .then(history.push("/api/category"))
+        }
+        else {
+            window.alert("This Category is being used By a post.  Cannot delete.")
         }
     }
     const handleCancel = () => {

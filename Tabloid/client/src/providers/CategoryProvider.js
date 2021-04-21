@@ -37,7 +37,7 @@ export const CategoryProvider = (props) => {
     };
 
     const deleteCategory = (category) => {
-        return fetch(`/api/category/${category.id}`, {
+        return fetch(`/api/category/delete/${category.id}`, {
             method: "DELETE",
         })
             .then(getAllCategories())
