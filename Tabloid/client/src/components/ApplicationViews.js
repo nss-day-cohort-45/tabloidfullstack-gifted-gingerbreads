@@ -48,9 +48,11 @@ export default function ApplicationViews() {
         </CategoryProvider>
       </Route>
       <Route path="/category/delete/:categoryId(\d+)">
-        <CategoryProvider>
-          <DeleteCategory />
-        </CategoryProvider>
+        <PostProvider>
+          <CategoryProvider>
+            <DeleteCategory />
+          </CategoryProvider>
+        </PostProvider>
       </Route>
 
 

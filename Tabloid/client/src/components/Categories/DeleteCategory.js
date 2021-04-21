@@ -6,7 +6,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 
 const DeleteCategory = () => {
     const { deleteCategory, getCategoryById } = useContext(CategoryContext);
-    const { getPosts } = useContext(PostContext);
+    const { getPostsByCategoryId } = useContext(PostContext);
 
     const { categoryId } = useParams();
 
@@ -19,12 +19,16 @@ const DeleteCategory = () => {
             .then((response) => {
                 setCategory(response)
             })
+            .then(getPostsByCategoryId(categoryId))
     }, [])
 
+
+
     const handleDelete = () => {
-        const CatIdArray = getPosts.map(p => {
+        const CatIdArray = getPostsByCategoryId.map(p => {
             return p.categoryId
         })
+        console.log(CatIdArray)
 
         for (const cat of CatIdArray) {
             if (cat === categoryId) {
