@@ -8,7 +8,6 @@ import TagList from "./tags/TagList";
 import TagForm from "./tags/TagForm";
 import TagDelete from "./tags/TagDelete";
 import TagEdit from "./tags/TagEdit";
-import { TagProvider } from "../providers/TagProvider";
 import CategoryList from "./Categories/CategoryList";
 import CategoryProvider from "../providers/CategoryProvider"
 import CategoryForm from "./Categories/CategoryForm"

@@ -16,6 +16,7 @@ const ManagePostTags = () => {
     const history = useHistory();
 
     useEffect(() => {
+        getAllTags()
         getPosts()
         getPostById(postId)
     }, []);
@@ -36,7 +37,8 @@ const ManagePostTags = () => {
         <div className="row justify-content-center">
             <div className="container">
                 <div className="cards-column">
-                    {postTags.map((tag) => (
+                    <h2>Add tag to post</h2>
+                    {tags.map((tag) => (
                         <TagsForPost key={tag.id} tag={tag} />
                     ))}
 
