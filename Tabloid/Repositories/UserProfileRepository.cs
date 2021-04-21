@@ -41,7 +41,7 @@ namespace Tabloid.Repositories
                             CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                             ImageLocation = DbUtils.GetNullableString(reader, "ImageLocation"),
                             UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
-                            Deactivated = DbUtils.GetNullableDateTime(reader, "Deactivated"),
+                            //Deactivated = DbUtils.GetNullableDateTime(reader, "Deactivated"),
                             UserType = new UserType()
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
