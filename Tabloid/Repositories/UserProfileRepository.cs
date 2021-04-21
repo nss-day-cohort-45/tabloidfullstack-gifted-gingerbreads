@@ -39,15 +39,9 @@ namespace Tabloid.Repositories
                             DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
                             Email = reader.GetString(reader.GetOrdinal("Email")),
                             CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-<<<<<<< HEAD
                             ImageLocation = DbUtils.GetNullableString(reader, "ImageLocation"),
                             UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                             //Deactivated = DbUtils.GetNullableDateTime(reader, "Deactivated"),
-=======
-                            //ImageLocation = DbUtils.GetNullableString(reader, "ImageLocation"),
-                            UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
-                            //Deactivated = DbUtils.GetNullableDateTime(reader, "Deactivated"),git 
->>>>>>> main
                             UserType = new UserType()
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
