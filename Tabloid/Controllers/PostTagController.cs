@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tabloid.Models;
 using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
@@ -20,10 +21,27 @@ namespace Tabloid.Controllers
             _postRepo = postRepo;
         }
 
-        [HttpGet]
-        public IActionResult Index(int postId)
+        [HttpGet("Manage-Tags/{id}")]
+        public IActionResult Get(int id)
         {
-            return Ok(_postTagRepo.GetAllTagsForPost(postId));
+            return Ok(_postTagRepo.GetAllPostTagsForPost(id));
         }
+
+        [HttpPost("Add")]
+        public IActionResult Post(PostTag postTag)
+        {
+            _postTagRepo.Add(postTag);
+            return CreatedAtAction("Get", new { id = postTag.Id }, postTag);
+        }
+
+        [HttpDelete("Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            _postTagRepo.Delete(id);
+            return NoContent();
+        }
+
+
+
     }
 }

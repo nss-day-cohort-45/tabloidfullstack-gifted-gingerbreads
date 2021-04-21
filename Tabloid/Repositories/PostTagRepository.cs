@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Models;
+using Tabloid.Utils;
 
 namespace Tabloid.Repositories
 {
@@ -12,7 +13,7 @@ namespace Tabloid.Repositories
     {
         public PostTagRepository(IConfiguration config) : base(config) { }
 
-        public void GetAllTagsForPost(int postTag)
+        public List<PostTag> GetAllPostTagsForPost(int id)
         {
             using (SqlConnection conn = Connection)
             {
@@ -21,29 +22,56 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                     SELECT  pt.Id AS PostTagId, pt.PostId, pt.TagId, 
-                            p.Title, p.Id AS PostId, 
+                            p.Title AS PostTitle, p.Id AS PostId, p.Content, p.ImageLocation, p.PublishDateTime, p.CategoryId, 
                             t.Name AS TagName, t.Id AS TagId 
 
                     FROM    PostTag pt
-                            JOIN Post p ON pt.PostId = p.Id 
-                            JOIN Tag t ON pt.TagId = t.Id
-                    WHERE   PostId = @postId AND TagId = @tagId
+
+               LEFT JOIN    Post p ON pt.PostId = p.Id 
+               LEFT JOIN    Tag t ON pt.TagId = t.Id
+
+                    WHERE   pt.PostId = @PostId
                     ";
 
-                    cmd.Parameters.AddWithValue("@postId", postTag.PostId);
-                    cmd.Parameters.AddWithValue("@tagId", postTag.TagId);
+                    DbUtils.AddParameter(cmd, "@PostId", id);
 
-                    cmd.ExecuteNonQuery();
+                    var reader = cmd.ExecuteReader();
+
+                    var postTags = new List<PostTag>();
+                    while (reader.Read())
+                    {
+                        postTags.Add(new PostTag()
+                        {
+                            Id = DbUtils.GetInt(reader, "PostTagId"),
+
+                            PostId = id,
+                            Post = new Post()
+                            {
+                                Id = DbUtils.GetInt(reader, "PostId"),
+                                Title = DbUtils.GetString(reader, "PostTitle"),
+                                Content = DbUtils.GetString(reader, "Content"),
+                                ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                                PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime").ToString("MM/dd/yyyy"),
+                                CategoryId = DbUtils.GetInt(reader, "CategoryId"),        
+                            },
+
+                            TagId = DbUtils.GetInt(reader, "TagId"),
+                            Tag = new Tag()
+                            {
+                                Id = DbUtils.GetInt(reader, "TagId"),
+                                Name = DbUtils.GetString(reader, "TagName")
+                            }
+                        });
+                    }
+
+                    reader.Close();
+                    return postTags;
                 }
-
-
-
 
             }
         }
 
-
-        public void AddPostTag(PostTag postTag)
+        public void Add(PostTag postTag)
         {
             using (SqlConnection conn = Connection)
             {
@@ -65,7 +93,7 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void DeletePostTag(int postTagId)
+        public void Delete(int postTagId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -83,33 +111,29 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void UpdatePostTag(PostTag postTag)
-        {
-            using (SqlConnection conn = Connection)
-            {
-                conn.Open();
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                        UPDATE PostTag
-                        set
-                            PostId = @postId,
-                            TagId = @tagId
-                        WHERE Id = @id";
+        //public void UpdatePostTag(PostTag postTag)
+        //{
+        //    using (SqlConnection conn = Connection)
+        //    {
+        //        conn.Open();
+        //        using (SqlCommand cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"
+        //                UPDATE PostTag
+        //                set
+        //                    PostId = @postId,
+        //                    TagId = @tagId
+        //                WHERE Id = @id";
 
-                    cmd.Parameters.AddWithValue("@postId", postTag.PostId);
-                    cmd.Parameters.AddWithValue("@tagId", postTag.TagId);
-                    cmd.Parameters.AddWithValue("@id", postTag.Id);
+        //            cmd.Parameters.AddWithValue("@postId", postTag.PostId);
+        //            cmd.Parameters.AddWithValue("@tagId", postTag.TagId);
+        //            cmd.Parameters.AddWithValue("@id", postTag.Id);
 
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //    }
+        //}
 
-        public void GetAllTagsForPost(PostTag postTag)
-        {
-            throw new NotImplementedException();
-        }
 
         // Get all tags for post
 

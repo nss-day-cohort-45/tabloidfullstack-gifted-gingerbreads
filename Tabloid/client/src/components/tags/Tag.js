@@ -2,10 +2,9 @@ import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardBody } from "reactstrap";
 import { TagContext } from "../../providers/TagProvider.js";
-// import TagDelete from "./TagDelete.js";
 
 const Tag = ({ tag }) => {
-    const { tags, getAllTags } = useContext(TagContext);
+    const { getAllTags } = useContext(TagContext);
     const history = useHistory();
 
     useEffect(() => {

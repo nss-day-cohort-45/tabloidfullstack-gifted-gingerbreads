@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { useParams, useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
-import { ManagePostTags } from "../tags/ManagePostTags.js";
+import { ManagePostTags } from "../postTag/ManagePostTags.js";
 
 const PostDetails = () => {
   const { posts, getPostDetails } = useContext(PostContext);
@@ -17,7 +17,7 @@ const PostDetails = () => {
   }, []);
 
   const ManagePostTags = () => {
-    history.push(`/post/manage-tags/${postId}`)
+    history.push(`/posttag/manage-tags/${postId}`)
   }
 
   return (

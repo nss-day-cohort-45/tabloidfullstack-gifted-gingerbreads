@@ -1,12 +1,12 @@
-﻿using Tabloid.Models;
+﻿using System.Collections.Generic;
+using Tabloid.Models;
 
 namespace Tabloid.Repositories
 {
     public interface IPostTagRepository
     {
-        void AddPostTag(PostTag postTag);
-        void DeletePostTag(int postTagId);
-        void GetAllTagsForPost(PostTag postTag);
-        void UpdatePostTag(PostTag postTag);
+        void Add(PostTag postTag);
+        void Delete(int postTagId);
+        List<PostTag> GetAllPostTagsForPost(int id);
     }
 }
