@@ -10,5 +10,6 @@ namespace Tabloid.Repositories
         List<Post> GetUserPosts(int userProfileId);
 
         List<Post> GetPostById(int PostId);
+        List<Post> GetPostsByCategory(int CategoryId);
     }
 }
