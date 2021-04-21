@@ -9,6 +9,10 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import { UserProfileProvider } from "../providers/UserProfileProvider"
 import { UserProfileList } from "./userprofiles/UserProfileList"
 import { UserProfileDetails } from "./userprofiles/UserProfileDetails"
+import { CommentProvider } from "../providers/CommentProvider";
+import CommentList from "./Comments.js/CommentList";
+import CommentCreateForm from "./Comments.js/CommentCreateForm";
+import CommentDeletionConfirmation from "./Comments.js/CommentDeletionConfirmation";
 
 import TagList from "./tags/TagList";
 import TagForm from "./tags/TagForm";
@@ -101,7 +105,24 @@ export default function ApplicationViews() {
       </Route>
 
 
+
       <PostProvider>
+        <CommentProvider>
+          <Route path="/comments/:postId(\d+)">
+            {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
+          </Route>
+
+          <Route path="/comment/:postId(\d+)/create" exact>
+            {isLoggedIn ? <CommentCreateForm /> : <Redirect to="/login" />}
+          </Route>
+
+
+          <Route path="/comment/:commentId(\d+)" exact>
+            {isLoggedIn ? <CommentDeletionConfirmation /> : <Redirect to="/login" />}
+          </Route>
+        </CommentProvider>
+
+
         <Route path="/posts">
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
         </Route>
@@ -126,6 +147,7 @@ export default function ApplicationViews() {
         </PostTagProvider>
       </PostProvider>
 
-    </main>
+    </main >
+
   );
 };
