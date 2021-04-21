@@ -14,10 +14,13 @@ import CategoryProvider from "../providers/CategoryProvider"
 import CategoryForm from "./Categories/CategoryForm"
 import EditCategory from "./Categories/EditCategory"
 import DeleteCategory from "./Categories/DeleteCategory"
+import ManagePostTags from "./postTag/ManagePostTags";
 import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
 import PostDetails from "./Posts/PostDetails"
 import { PostProvider } from "../providers/PostProvider";
+import { PostTagProvider } from "../providers/PostTagProvider";
+import { TagProvider } from "../providers/TagProvider";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -97,6 +100,18 @@ export default function ApplicationViews() {
           {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
         </Route>
       </PostProvider>
+
+
+      <PostProvider>
+        <PostTagProvider>
+          <TagProvider>
+            <Route exact path="/posttag/manage-tags/:postId(\d+)">
+              <ManagePostTags />
+            </Route>
+          </TagProvider>
+        </PostTagProvider>
+      </PostProvider>
+
     </main>
   );
 };

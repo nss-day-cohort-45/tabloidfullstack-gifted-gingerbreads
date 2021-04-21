@@ -12,9 +12,9 @@ export const PostProvider = (props) => {
   };
 
   const getUserPosts = (userId) => {
-      return fetch(`https://localhost:5001/api/Post/GetByUser?userId=${userId}`)
-        .then((res) => res.json())
-        .then(setPosts);
+    return fetch(`https://localhost:5001/api/Post/GetByUser?userId=${userId}`)
+      .then((res) => res.json())
+      .then(setPosts);
   }
 
   const getPostDetails = (postId => {
@@ -23,8 +23,13 @@ export const PostProvider = (props) => {
       .then(setPosts);
   })
 
+  const getPostById = (postId) => {
+    return fetch(`/api/Post/GetById/${postId}`)
+      .then((res) => res.json())
+  };
+
   return (
-    <PostContext.Provider value={{ posts, getPosts, getUserPosts, getPostDetails }}>
+    <PostContext.Provider value={{ posts, getPosts, getUserPosts, getPostDetails, getPostById }}>
       {props.children}
     </PostContext.Provider>
   );
