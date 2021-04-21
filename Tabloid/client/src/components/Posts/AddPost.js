@@ -23,7 +23,7 @@ export const AddPostForm = () => {
 
     useEffect(() => {
         getPosts()
-        .then(getAllCategories)
+            .then(getAllCategories)
     }, [])
 
     const handleControlledInputChange = (event) => {
@@ -82,12 +82,16 @@ export const AddPostForm = () => {
                     </select>
                 </div>
             </fieldset>
-            <Button onClick={handleSavePost}>
+            <Button onClick={event => {
+                event.preventDefault();
+                handleSavePost();
+            }}>
                 <Link className="savePost" to={"/Posts"}>
                     Save Post
                 </Link>
             </Button>
 
         </section>
-    )
-}
+    );
+};
+export default AddPostForm;

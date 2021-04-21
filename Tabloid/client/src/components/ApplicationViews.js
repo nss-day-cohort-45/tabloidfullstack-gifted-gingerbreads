@@ -17,6 +17,7 @@ import ManagePostTags from "./postTag/ManagePostTags";
 import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
 import PostDetails from "./Posts/PostDetails"
+import AddPostForm from "./Posts/AddPost"
 import { PostProvider } from "../providers/PostProvider";
 import { PostTagProvider } from "../providers/PostTagProvider";
 import { TagProvider } from "../providers/TagProvider";
