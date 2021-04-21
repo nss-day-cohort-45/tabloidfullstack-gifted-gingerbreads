@@ -29,6 +29,7 @@ export default function Header() {
                 <NavLink tag={RRNavLink} to="/">Home</NavLink>
                 <NavLink tag={RRNavLink} to="/userProfiles">User Profiles</NavLink>
                 <NavLink tag={RRNavLink} to="/tags">Tags</NavLink>
+                <NavLink tag={RRNavLink} to="/api/category">Category Management</NavLink>
                 <NavLink tag={RRNavLink} to="/Posts">Posts</NavLink>
                 <NavLink tag={RRNavLink} to="/UserPosts">My Posts</NavLink>
               </NavItem>
