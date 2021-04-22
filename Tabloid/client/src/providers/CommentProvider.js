@@ -16,16 +16,28 @@ export const CommentProvider = (props) => {
 
 
     const getAllCommentsByPostId = (postId) => {
-        return fetch(`/comments/${postId}`)
-            .then((res) => res.json())
-            .then(setComments);
+        return getToken().then((token) =>
+            fetch(`/comments/${postId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+                .then((res) => res.json())
+                .then(setComments));
     };
 
 
     const getCommentById = (commentId) => {
-        return fetch(`/comment/${commentId}`)
-            .then((res) => res.json())
-    }
+        return getToken().then((token) =>
+            fetch(`/comment/${commentId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+                .then((res) => res.json()))
+    };
 
 
 
@@ -70,9 +82,13 @@ export const CommentProvider = (props) => {
 
 
     const deleteComment = (commentId) => {
-        return fetch(`/comment/delete/${commentId}`, {
-            method: "DELETE"
-        })
+        return getToken().then((token) =>
+            fetch(`/comment/delete/${commentId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }))
     };
 
 
