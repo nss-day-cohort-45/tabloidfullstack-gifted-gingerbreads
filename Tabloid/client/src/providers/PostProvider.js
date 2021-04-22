@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserProfileContext } from "./UserProfileProvider";
 
 export const PostContext = React.createContext();
 
@@ -7,29 +8,57 @@ export const PostProvider = (props) => {
   const { getToken } = useContext(UserProfileContext);
 
   const getPosts = () => {
-    
+    return getToken().then((token) =>
+      fetch("https://localhost:5001/api/Post", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => res.json())
+        .then(setPosts));
   };
 
   const getUserPosts = (userId) => {
-    return fetch(`https://localhost:5001/api/Post/GetByUser?userId=${userId}`)
-      .then((res) => res.json())
-      .then(setPosts);
-  }
+    return getToken().then((token) =>
+      fetch(`https://localhost:5001/api/Post/GetByUser?userId=${userId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => res.json())
+        .then(setPosts));
+  };
 
-  const getPostDetails = (postId => {
-    return fetch(`https://localhost:5001/api/Post/GetById?postId=${postId}`)
-      .then((res) => res.json())
-      .then(setPosts);
-  });
+  const getPostDetails = (postId) => {
+    return getToken().then((token) =>
+      fetch(`https://localhost:5001/api/Post/GetById?postId=${postId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => res.json())
+        .then(setPosts));
+  };
 
   const addPost = (post) => {
-    return fetch("https://localhost:5001/api/Post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(post),
-    });
+    return getToken().then((token) =>
+      fetch("https://localhost:5001/api/Post/add", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      }).then(resp => {
+        if (resp.ok) {
+          return resp.json();
+        }
+        throw new Error("Unauthorized");
+      })
+    )
   };
 
   const getPostById = (postId) => {
