@@ -14,7 +14,7 @@ import TagForm from "./tags/TagForm";
 import TagDelete from "./tags/TagDelete";
 import TagEdit from "./tags/TagEdit";
 import CategoryList from "./Categories/CategoryList";
-import CategoryProvider from "../providers/CategoryProvider"
+import CategoryProvider, { CategoryContext } from "../providers/CategoryProvider"
 import CategoryForm from "./Categories/CategoryForm"
 import EditCategory from "./Categories/EditCategory"
 import DeleteCategory from "./Categories/DeleteCategory"
@@ -22,6 +22,7 @@ import ManagePostTags from "./postTag/ManagePostTags";
 import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
 import PostDetails from "./Posts/PostDetails"
+import AddPostForm from "./Posts/AddPost"
 import { PostProvider } from "../providers/PostProvider";
 import { PostTagProvider } from "../providers/PostTagProvider";
 import { TagProvider } from "../providers/TagProvider";
@@ -95,6 +96,7 @@ export default function ApplicationViews() {
 
 
       <PostProvider>
+        <CategoryProvider>
         <CommentProvider>
           <Route path="/comments/:postId(\d+)">
             {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
@@ -111,17 +113,22 @@ export default function ApplicationViews() {
         </CommentProvider>
 
 
-        <Route path="/posts">
+        <Route exact path="/Posts">
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/userPosts">
-          {isLoggedIn ? <UserPostList /> : <Redirect to="/login" />}
-        </Route>
+          <Route exact path="/UserPosts">
+            <UserPostList />
+          </Route>
 
-        <Route exact path="/post/:postId(\d+)">
-          {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
-        </Route>
+          <Route exact path="/Post/:postId(\d+)">
+            <PostDetails />
+          </Route>
+
+          <Route exact path="/Posts/NewPost">
+            <AddPostForm />
+          </Route>
+        </CategoryProvider>
       </PostProvider>
 
 
