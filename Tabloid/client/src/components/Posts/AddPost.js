@@ -42,7 +42,7 @@ export const AddPostForm = () => {
             isApproved: 1,
             categoryId: post.categoryId,
         })
-            .then(getPosts);
+        // .then(getPosts);
     };
 
     return (
