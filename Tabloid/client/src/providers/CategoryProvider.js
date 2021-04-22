@@ -66,14 +66,3 @@ export const CategoryProvider = (props) => {
 };
 export default CategoryProvider;
 
-const getAllCommentsByPostId = (postId) => {
-    return getToken().then((token) =>
-        fetch(`/comments/${postId}`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then((res) => res.json())
-            .then(setComments));
-};
