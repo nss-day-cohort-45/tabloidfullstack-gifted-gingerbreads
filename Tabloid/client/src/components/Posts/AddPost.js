@@ -16,7 +16,7 @@ export const AddPostForm = () => {
         imageLocation: "",
         createDateTime: "",
         publishDateTime: "",
-        isApproved: 0,
+        isApproved: false,
         categoryId: 0
     });
 
@@ -39,7 +39,7 @@ export const AddPostForm = () => {
             imageLocation: post.imageLocation,
             createDateTime: new Date(),
             publishDateTime: post.publishDateTime,
-            isApproved: 1,
+            isApproved: true,
             categoryId: post.categoryId,
         })
         // .then(getPosts);
@@ -70,7 +70,7 @@ export const AddPostForm = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="categoryId">Category: </label>
-                    <select name="categoryId" id="category" className="form-control" onChange={handleControlledInputChange}>
+                    <select name="categoryId" id="categoryId" className="form-control" onChange={handleControlledInputChange}>
                         <option value="0">Select a category</option>
                         {categories.map(category => (
                             <option key={category.id} value={category.id}>
