@@ -17,8 +17,7 @@ export const AddPostForm = () => {
         createDateTime: "",
         publishDateTime: "",
         isApproved: 0,
-        categoryId: 0,
-        userProfileId: 0
+        categoryId: 0
     });
 
     useEffect(() => {
@@ -42,7 +41,6 @@ export const AddPostForm = () => {
             publishDateTime: post.publishDateTime,
             isApproved: 1,
             categoryId: post.categoryId,
-            userProfileId: sessionStorage.getItem("userProfile")
         })
             .then(getPosts);
     };
@@ -72,7 +70,7 @@ export const AddPostForm = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="categoryId">Category: </label>
-                    <select value={post.categoryId} name="categoryId" id="category" className="form-control" onChange={handleControlledInputChange}>
+                    <select name="categoryId" id="category" className="form-control" onChange={handleControlledInputChange}>
                         <option value="0">Select a category</option>
                         {categories.map(category => (
                             <option key={category.id} value={category.id}>
@@ -82,10 +80,7 @@ export const AddPostForm = () => {
                     </select>
                 </div>
             </fieldset>
-            <Button onClick={event => {
-                event.preventDefault();
-                handleSavePost();
-            }}>
+            <Button onClick={handleSavePost}>
                 <Link className="savePost" to={"/Posts"}>
                     Save Post
                 </Link>

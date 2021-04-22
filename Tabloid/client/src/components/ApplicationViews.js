@@ -111,7 +111,7 @@ export default function ApplicationViews() {
         </CommentProvider>
 
 
-        <Route path="/posts">
+        <Route exact path="/Posts">
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
         </Route>
 
