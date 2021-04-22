@@ -19,10 +19,18 @@ export const CategoryProvider = (props) => {
             }).then(resp => resp.json())
                 .then(setCategories));
 
-    const getCategoryById = (id) => {
-        return fetch(`/api/category/${id}`)
-            .then((res) => res.json())
-    };
+    const getCategoryById = (id) =>
+        getToken().then((token) =>
+            fetch(`/api/category/${id}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-type": "application/json"
+                }
+            }).then((res) => res.json())
+                .then(setCategories));
+
+
 
     const addCategory = (category) =>
         getToken().then((token) =>
@@ -40,23 +48,35 @@ export const CategoryProvider = (props) => {
                 throw new Error("Unauthorized");
             }));
 
-    const editCategory = (category) => {
-        return fetch(`/api/Category/${category.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(category),
-        })
+    const editCategory = (category) =>
+        getToken().then((token) =>
+            fetch(`/api/Category/${category.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(category),
+            }).then(resp => {
+                if (resp.ok) {
+                    return resp.json();
+                }
+                throw new Error("Unauthorized")
+            }))
             .then(getAllCategories())
-    };
 
-    const deleteCategory = (category) => {
-        return fetch(`/api/category/delete/${category.id}`, {
-            method: "DELETE",
-        })
+
+    const deleteCategory = (category) =>
+        getToken().then((token) =>
+            fetch(`/api/category/delete/${category.id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+            }))
             .then(getAllCategories())
-    };
+
 
     return (
         <CategoryContext.Provider value={{ categories, getAllCategories, addCategory, editCategory, getCategoryById, deleteCategory }}>

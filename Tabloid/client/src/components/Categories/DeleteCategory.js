@@ -22,7 +22,7 @@ const DeleteCategory = () => {
             .then(getPostsByCategoryId(categoryId))
     }, [])
 
-
+    console.log(category)
 
     const handleDelete = () => {
         console.log(posts)
@@ -40,7 +40,7 @@ const DeleteCategory = () => {
 
     return (
         <section>
-            <div className="delete_message"> Are you sure you want to delete {category.did}?</div>
+            <div className="delete_message"> Are you sure you want to delete {category.name}?</div>
             <Button className="delete" onClick={handleDelete}>Delete</Button>
             <Button className="cancel" onClick={handleCancel}>Cancel</Button>
 
