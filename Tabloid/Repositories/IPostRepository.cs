@@ -10,5 +10,11 @@ namespace Tabloid.Repositories
         List<Post> GetUserPosts(int userProfileId);
 
         List<Post> GetPostById(int PostId);
+
+        void Add(Post post);
+
+        void Delete(int postId);
+
+        void Update(Post post);
     }
 }
