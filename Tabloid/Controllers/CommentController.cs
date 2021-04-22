@@ -75,6 +75,7 @@ namespace Tabloid.Controllers
             }
             var currentUserProfile = GetCurrentUserProfile();
             comment.UserProfileId = currentUserProfile.Id;
+            comment.CreateDateTime = DateTime.Now.ToString("MM/dd/yyyy");
             _commentRepository.Update(comment);
             return NoContent();
         }

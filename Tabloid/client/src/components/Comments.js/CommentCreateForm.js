@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom';
 const CommentCreateForm = () => {
     const history = useHistory();
     const { addComment } = useContext(CommentContext)
-    const { postId } = useParams();
+    const { postId } = useParams(); //this  HAS TO MATCH this part ":postId(\d+)" in ApplicationViews
 
     const [comment, setComment] = useState({
         postId,
@@ -15,7 +15,7 @@ const CommentCreateForm = () => {
     });
 
     const handleControlledInputChange = (event) => {
-        const newComment = { ...comment }
+        const newComment = { ...comment } // make a copy of state
         newComment[event.target.id] = event.target.value
         setComment(newComment)
     }

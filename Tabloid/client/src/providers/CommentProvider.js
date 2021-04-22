@@ -50,11 +50,6 @@ export const CommentProvider = (props) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(comment),
-            }).then(resp => {
-                if (resp.ok) {
-                    return resp.json();
-                }
-                throw new Error("Unauthorized");
             })
         )
     };
@@ -70,11 +65,6 @@ export const CommentProvider = (props) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(comment),
-            }).then(resp => {
-                if (resp.ok) {
-                    return resp.json();
-                }
-                throw new Error("Unauthorized");
             })
         )
     };
