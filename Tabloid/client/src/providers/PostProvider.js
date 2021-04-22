@@ -4,11 +4,10 @@ export const PostContext = React.createContext();
 
 export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
+  const { getToken } = useContext(UserProfileContext);
 
   const getPosts = () => {
-    return fetch("https://localhost:5001/api/Post")
-      .then((res) => res.json())
-      .then(setPosts);
+    
   };
 
   const getUserPosts = (userId) => {
