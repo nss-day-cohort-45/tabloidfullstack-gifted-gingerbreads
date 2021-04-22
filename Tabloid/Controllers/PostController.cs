@@ -2,19 +2,23 @@
 using Microsoft.AspNetCore.Mvc;
 using Tabloid.Repositories;
 using Tabloid.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
         private readonly IUserProfileRepository _userProfileRepository;
 
-        public PostController(IPostRepository postRepository)
+        public PostController(IPostRepository postRepository, IUserProfileRepository userProfileRepository)
         {
             _postRepository = postRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         [HttpGet]

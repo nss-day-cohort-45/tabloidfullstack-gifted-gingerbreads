@@ -24,7 +24,7 @@ export const PostProvider = (props) => {
   });
 
   const addPost = (post) => {
-    return fetch("/api/Post", {
+    return fetch("https://localhost:5001/api/Post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
