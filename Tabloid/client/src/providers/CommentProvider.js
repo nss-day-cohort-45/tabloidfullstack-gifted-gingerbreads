@@ -41,8 +41,8 @@ export const CommentProvider = (props) => {
 
 
 
-    const addComment = (comment) =>
-        getToken().then((token) =>
+    const addComment = (comment) => {
+        return getToken().then((token) =>
             fetch(`/comment/${comment.postId}/create`, {
                 method: "POST",
                 headers: {
@@ -56,12 +56,13 @@ export const CommentProvider = (props) => {
                 }
                 throw new Error("Unauthorized");
             })
-        );
+        )
+    };
 
 
 
-    const editComment = (comment) =>
-        getToken().then((token) =>
+    const editComment = (comment) => {
+        return getToken().then((token) =>
             fetch(`/comment/${comment.id}/edit`, {
                 method: "PUT",
                 headers: {
@@ -75,7 +76,8 @@ export const CommentProvider = (props) => {
                 }
                 throw new Error("Unauthorized");
             })
-        );
+        )
+    };
 
 
 
