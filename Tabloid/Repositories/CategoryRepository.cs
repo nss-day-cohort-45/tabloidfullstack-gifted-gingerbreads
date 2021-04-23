@@ -91,7 +91,7 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void Delete(int id)
+        public void Delete(int categoryId)
         {
             using (var conn = Connection)
             {
@@ -99,7 +99,7 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = "DELETE FROM Category WHERE Id = @Id";
-                    DbUtils.AddParameter(cmd, "@id", id);
+                    DbUtils.AddParameter(cmd, "@id", categoryId);
                     cmd.ExecuteNonQuery();
                 }
             }

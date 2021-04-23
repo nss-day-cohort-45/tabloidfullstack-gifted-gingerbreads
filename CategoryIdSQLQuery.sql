@@ -1,0 +1,1 @@
+﻿SELECT * from Post LEFT JOIN Category ON Post.CategoryId = Category.Id

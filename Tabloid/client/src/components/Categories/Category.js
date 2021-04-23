@@ -9,13 +9,13 @@ const Category = ({ category }) => {
                 <CardBody>
                     <p>
                         <strong>{category.name}</strong>
-                        <Button className="btn" variant="secondary" size="sm">
-                            <Link className="editCategory" to={`/category/${category.id}`}>
+                        <Button className="btn" color="primary" size="sm">
+                            <Link className="editCategory" to={`/category/${category.id}`} style={{ color: `#FFF` }}>
                                 Edit Category
                 </Link>
                         </Button>
-                        <Button className="delete_button" variant="secondary" size="sm">
-                            <Link className="deleteCategory" to={`/category/delete/${category.id}`}>
+                        <Button className="delete_button" color="primary" size="sm">
+                            <Link className=" deleteCategory" to={`/category/delete/${category.id}`} style={{ color: `#FFF` }} >
                                 Delete Category
                             </Link>
                         </Button>
