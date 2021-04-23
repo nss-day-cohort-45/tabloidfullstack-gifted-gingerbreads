@@ -9,17 +9,15 @@ const DeleteCategory = () => {
     const { getPostsByCategoryId, posts } = useContext(PostContext);
 
     const { categoryId } = useParams();
+    const [category, setCategory] = useState({})
+
 
     const history = useHistory();
 
-    const [category, setCategory] = useState({})
-
     useEffect(() => {
         getCategoryById(categoryId)
-            .then((response) => {
-                setCategory(response)
-            })
             .then(getPostsByCategoryId(categoryId))
+            .then(setCategory)
     }, [])
 
     console.log(category)
@@ -27,7 +25,7 @@ const DeleteCategory = () => {
     const handleDelete = () => {
         console.log(posts)
         if (posts.length === 0) {
-            deleteCategory(category)
+            deleteCategory(categoryId)
                 .then(history.push("/api/category"))
         }
         else {

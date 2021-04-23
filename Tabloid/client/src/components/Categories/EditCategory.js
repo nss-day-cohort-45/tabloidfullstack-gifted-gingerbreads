@@ -14,8 +14,8 @@ export const EditCategory = () => {
 
     useEffect(() => {
         getCategoryById(categoryId)
-            .then((response) => {
-                setCategory(response)
+            .then((res) => {
+                setCategory(res)
             })
     }, [])
 

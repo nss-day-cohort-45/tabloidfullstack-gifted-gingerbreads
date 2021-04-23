@@ -25,10 +25,8 @@ export const CategoryProvider = (props) => {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-type": "application/json"
                 }
-            }).then((res) => res.json())
-                .then(setCategories));
+            }).then((res) => res.json()))
 
 
 
@@ -57,25 +55,21 @@ export const CategoryProvider = (props) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(category),
-            }).then(resp => {
-                if (resp.ok) {
-                    return resp.json();
-                }
-                throw new Error("Unauthorized")
             }))
             .then(getAllCategories())
 
 
-    const deleteCategory = (category) =>
+    const deleteCategory = (id) =>
         getToken().then((token) =>
-            fetch(`/api/category/delete/${category.id}`, {
+            fetch(`/api/category/delete/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
+            })
+                .then(getAllCategories()))
 
-            }))
-            .then(getAllCategories())
+
 
 
     return (
