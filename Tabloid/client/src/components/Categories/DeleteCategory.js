@@ -39,8 +39,8 @@ const DeleteCategory = () => {
     return (
         <section>
             <div className="delete_message"> Are you sure you want to delete {category.name}?</div>
-            <Button className="delete" onClick={handleDelete}>Delete</Button>
-            <Button className="cancel" onClick={handleCancel}>Cancel</Button>
+            <Button color="danger" className="delete" onClick={handleDelete}>Delete</Button>
+            <Button color="danger" className="cancel" onClick={handleCancel}>Cancel</Button>
 
         </section>
     )

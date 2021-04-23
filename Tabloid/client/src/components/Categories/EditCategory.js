@@ -48,7 +48,7 @@ export const EditCategory = () => {
                 </Link>
             </Button>
             <Button className="cancel">
-                <Link to={"/api/category"}>Cancel</Link>
+                <Link to={"/api/category"} style={{ color: `#FFF` }}>Cancel</Link>
             </Button>
 
         </section>
