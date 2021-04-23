@@ -67,7 +67,7 @@ namespace Tabloid.Controllers
 
 
         [HttpPut("/comment/{commentId}/edit")]
-        public IActionResult Put(int commentId, Comment comment)
+        public IActionResult Put(int commentId, Comment comment) //the first param name "commentId" MUST MATCH the param "{commentId}" in the PUT URL in teh above line
         {
             if (commentId != comment.Id)
             {
