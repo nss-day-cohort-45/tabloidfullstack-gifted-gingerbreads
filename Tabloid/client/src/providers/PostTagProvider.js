@@ -7,7 +7,6 @@ export const PostTagProvider = (props) => {
     const [postTags, setPostTags] = useState([]);
     const { getToken } = useContext(UserProfileContext);
 
-
     const getAllPostTagsForPost = (postId) => {
         return getToken().then((token) =>
             fetch(`/api/PostTag/Manage-Tags/${postId}`, {
@@ -16,7 +15,20 @@ export const PostTagProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
             })
+                .then((res) => res.json())
+                .then((res) => setPostTags(res)))
+    };
+
+    const getPostTagById = (postTagId) => {
+        return getToken().then((token) =>
+            fetch(`/api/PostTag/GetById/${postTagId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
                 .then((res) => res.json()))
+
     };
 
     const addPostTag = (postTag) => {
@@ -37,21 +49,19 @@ export const PostTagProvider = (props) => {
         )
     };
 
-    const deletePostTag = postTagId => {
+    const deletePostTag = (postTagId) => {
         return getToken().then((token) =>
             fetch(`/api/PostTag/Delete/${postTagId}`, {
                 method: "DELETE",
                 headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
+                    Authorization: `Bearer ${token}`
                 },
-            })
-                .then(getAllPostTagsForPost))
+            }))
     };
 
 
     return (
-        < PostTagContext.Provider value={{ postTags, getAllPostTagsForPost, addPostTag, deletePostTag }}>
+        < PostTagContext.Provider value={{ postTags, getAllPostTagsForPost, addPostTag, deletePostTag, getPostTagById }}>
             {props.children}
         </PostTagContext.Provider >
     );
