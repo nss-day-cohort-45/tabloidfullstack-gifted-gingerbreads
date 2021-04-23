@@ -15,8 +15,8 @@ const CategoryList = () => {
     return (
 
         <div className="container">
-            <Button className="btn" variant="secondary" size="sm">
-                <Link className="newCategory" to={"/category/addnew"}>
+            <Button className="btn" color="primary" variant="secondary" size="sm">
+                <Link className="newCategory" to={"/category/addnew"} style={{ color: `#FFF` }}>
                     Add Category
                 </Link>
             </Button>
