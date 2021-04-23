@@ -67,9 +67,9 @@ namespace Tabloid.Controllers
 
 
         [HttpPut("/comment/{commentId}/edit")]
-        public IActionResult Put(int id, Comment comment)
+        public IActionResult Put(int commentId, Comment comment)
         {
-            if (id != comment.Id)
+            if (commentId != comment.Id)
             {
                 return BadRequest();
             }
