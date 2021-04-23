@@ -40,6 +40,7 @@ const PostDetails = () => {
       <button onClick={() => {
         history.push(`/comment/${postId}/create`)
       }}>Add A Comment</button>
+      
     </>
   );
 };

@@ -6,6 +6,7 @@ export const PostContext = React.createContext();
 export const PostProvider = (props) => {
   const [posts, setPosts] = useState([]);
   const { getToken } = useContext(UserProfileContext);
+  const userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
 
   const getPosts = () => {
     return getToken().then((token) =>
@@ -19,9 +20,9 @@ export const PostProvider = (props) => {
         .then(setPosts));
   };
 
-  const getUserPosts = (userId) => {
+  const getUserPosts = () => {
     return getToken().then((token) =>
-      fetch(`/api/Post/GetByUser?userId=${userId}`, {
+      fetch(`/api/Post/GetByUser?userId=${userProfile.id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
@@ -70,11 +71,6 @@ export const PostProvider = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(postId),
-      }).then(resp => {
-        if (resp.ok) {
-          return resp.json();
-        }
-        throw new Error("Unauthorized");
       })
     )
   };
