@@ -10,9 +10,6 @@ const PostDetails = () => {
   let { postId } = useParams()
   const history = useHistory();
 
-
-  console.log(posts[0]?.imageLocation)
-
   useEffect(() => {
     getPostDetails(postId);
   }, []);

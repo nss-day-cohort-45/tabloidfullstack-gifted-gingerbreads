@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Tabloid.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -58,7 +58,7 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
 
-        [HttpDelete("/delete/{postId}")]
+        [HttpDelete("delete/{postId}")]
         public IActionResult Delete(int postId)
         {
             _postRepository.Delete(postId);

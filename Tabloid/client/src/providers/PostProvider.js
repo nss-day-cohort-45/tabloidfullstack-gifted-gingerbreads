@@ -9,7 +9,7 @@ export const PostProvider = (props) => {
 
   const getPosts = () => {
     return getToken().then((token) =>
-      fetch("https://localhost:5001/api/Post", {
+      fetch("/api/Post", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
@@ -21,7 +21,7 @@ export const PostProvider = (props) => {
 
   const getUserPosts = (userId) => {
     return getToken().then((token) =>
-      fetch(`https://localhost:5001/api/Post/GetByUser?userId=${userId}`, {
+      fetch(`/api/Post/GetByUser?userId=${userId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
@@ -33,7 +33,7 @@ export const PostProvider = (props) => {
 
   const getPostDetails = (postId) => {
     return getToken().then((token) =>
-      fetch(`https://localhost:5001/api/Post/GetById?postId=${postId}`, {
+      fetch(`/api/Post/GetById?postId=${postId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
@@ -45,7 +45,7 @@ export const PostProvider = (props) => {
 
   const addPost = (post) => {
     return getToken().then((token) =>
-      fetch("https://localhost:5001/api/Post/add", {
+      fetch("/api/Post/add", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -61,13 +61,31 @@ export const PostProvider = (props) => {
     )
   };
 
+  const deletePost = (postId) => {
+    return getToken().then((token) =>
+      fetch(`/api/Post/delete/${postId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(postId),
+      }).then(resp => {
+        if (resp.ok) {
+          return resp.json();
+        }
+        throw new Error("Unauthorized");
+      })
+    )
+  };
+
   const getPostById = (postId) => {
     return fetch(`/api/Post/GetById/${postId}`)
       .then((res) => res.json())
   };
 
   return (
-    <PostContext.Provider value={{ posts, getPosts, getUserPosts, getPostDetails, getPostById, addPost }}>
+    <PostContext.Provider value={{ posts, getPosts, getUserPosts, getPostDetails, getPostById, addPost, deletePost }}>
       {props.children}
     </PostContext.Provider>
   );
