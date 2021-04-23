@@ -117,7 +117,58 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        public List<Post> GetPostsByCategory(int CategoryId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT p.Id AS PostId, p.Title, p.Content, p.ImageLocation, p.PublishDateTime, p.CategoryId,
+                        c.Id AS CategoryId, c.[Name],
+                        up.Id AS UserProfileId, up.DisplayName
+                        FROM Post p
+                        LEFT JOIN Category c ON c.Id = p.CategoryId
+                        LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
+                        WHERE p.CategoryId = @id";
 
+
+                    cmd.Parameters.AddWithValue("@id", CategoryId);
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "PostId"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime").ToString("MM/dd/yyyy"),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            PostCategory = new Category()
+                            {
+                                Id = DbUtils.GetInt(reader, "CategoryId"),
+                                Name = DbUtils.GetString(reader, "Name")
+                            },
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            PostAuthor = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                DisplayName = DbUtils.GetString(reader, "DisplayName")
+                            }
+
+                        });
+
+                    }
+                    reader.Close();
+                    return posts;
+                }
+            }
+        }
         public List<Post> GetPostById(int PostId)
         {
             using (var conn = Connection)
@@ -169,5 +220,74 @@ namespace Tabloid.Repositories
                 }
             }
         }
-    }
-}
+
+        public void Add(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Post (Title, Content, ImageLocation, CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId)
+                        OUTPUT INSERTED.ID
+                        VALUES (@Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime, @IsApproved, @CategoryId, @UserProfileId)";
+
+                    DbUtils.AddParameter(cmd, "@Title", post.Title);
+                    DbUtils.AddParameter(cmd, "@Content", post.Content);
+                    DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@CreateDateTime", post.CreateDateTime);
+                    DbUtils.AddParameter(cmd, "@PublishDateTime", post.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@IsApproved", post.IsApproved);
+                    DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
+
+                    post.Id = (int)cmd.ExecuteScalar();
+                }                                                  
+            }                                                      
+        }
+        
+        public void Delete(int postId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Post WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@id", postId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void Update(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Post
+                           SET Title = @Title,
+                           SET Content = @Content,
+                           SET ImageLocation = @ImageLocation,
+                           SET PublishDateTime = @PublishDateTime,
+                           SET CategoryId = @CategoryId
+                         WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Title", post.Title);
+                    DbUtils.AddParameter(cmd, "@Content", post.Content);
+                    DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@PublishDateTime", post.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+    }                                                              
+}                                                                  
