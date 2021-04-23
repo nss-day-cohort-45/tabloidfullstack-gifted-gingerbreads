@@ -4,7 +4,7 @@ import { PostTagContext } from "../../providers/PostTagProvider.js";
 import { TagContext } from "../../providers/TagProvider.js";
 import { PostContext } from "../../providers/PostProvider";
 import { Button, Form } from "reactstrap";
-import TagsForPost from "../postTag/TagsForPost.js";
+import TagForPost from "./TagForPost.js";
 
 const ManagePostTags = () => {
     const { postTags, getAllPostTagsForPost } = useContext(PostTagContext);
@@ -16,9 +16,8 @@ const ManagePostTags = () => {
     const history = useHistory();
 
     useEffect(() => {
-        getAllTags()
-        getPosts()
-        getPostById(postId)
+        getAllPostTagsForPost(postId)
+        // getPostById(postId)
     }, []);
 
     //Get post by id method - and use params - then get the title
@@ -26,10 +25,8 @@ const ManagePostTags = () => {
     // console.log(what, "hello???");
     // console.log(post, "posts???");
 
-
     // const blank = posts.map((post) => post.title);
     // console.log(blank, "post title")
-    console.log(post.title, "post title")
     // const matchingPost = posts.find((post) => post.Id === postId);
     // console.log(matchingPost, "matching post");
 
@@ -38,8 +35,8 @@ const ManagePostTags = () => {
             <div className="container">
                 <div className="cards-column">
                     <h2>Add tag to post</h2>
-                    {tags.map((tag) => (
-                        <TagsForPost key={tag.id} tag={tag} />
+                    {postTags.map((tag) => (
+                        <TagForPost key={tag.id} tag={tag} />
                     ))}
 
                     {/* {posts.map((p) => (

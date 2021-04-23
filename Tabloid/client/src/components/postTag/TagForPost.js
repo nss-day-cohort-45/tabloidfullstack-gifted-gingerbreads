@@ -1,25 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Button, Card, CardBody } from "reactstrap";
-import { TagContext } from "../../providers/TagProvider.js";
 import { PostTagContext } from "../../providers/PostTagProvider.js";
 
-const TagsForPost = ({ tag }) => {
+const TagForPost = ({ tag }) => {
     const { addPostTag, deletePostTag, getAllPostTagsForPost } = useContext(PostTagContext);
     const { postId } = useParams();
-    const [postTag, setPostTag] = useState({})
-    const { getAllTags } = useContext(TagContext);
+    const [postTag] = useState({});
     const history = useHistory();
 
     useEffect(() => {
-        getAllTags()
         getAllPostTagsForPost(postId)
     }, []);
 
     const handleAddPostTag = () => {
-        addPostTag(postTag)
+        const postTagObj = {
+            postId,
+            tagId: tag.id
+        }
+        addPostTag(postTagObj)
         history.push("/posts")
     };
+
+    // You need to delete the post tags 
+    // in order to delete the tags
 
     const handleDeletePostTag = () => {
         deletePostTag(postTag.id)
@@ -27,7 +31,6 @@ const TagsForPost = ({ tag }) => {
                 history.push("/posts")
             })
     };
-
 
     return (
         <Card className="m-4">
@@ -42,4 +45,4 @@ const TagsForPost = ({ tag }) => {
     );
 };
 
-export default TagsForPost;
+export default TagForPost;
