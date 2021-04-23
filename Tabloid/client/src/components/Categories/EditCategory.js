@@ -42,12 +42,12 @@ export const EditCategory = () => {
                         type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder={category.name} value={category.name} />
                 </div>
             </fieldset>
-            <Button onClick={handleSave}>
-                <Link className="saveCategory" to={"/api/category"}>
+            <Button color="warning" onClick={handleSave}>
+                <Link className="saveCategory" to={"/api/category"} style={{ color: `#FFF` }}>
                     Save Category
                 </Link>
             </Button>
-            <Button className="cancel">
+            <Button color="warning" className="cancel">
                 <Link to={"/api/category"} style={{ color: `#FFF` }}>Cancel</Link>
             </Button>
 
