@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { Link } from "react-router-dom";
 
+
 const PostList = () => {
   const { posts, getPosts } = useContext(PostContext);
 

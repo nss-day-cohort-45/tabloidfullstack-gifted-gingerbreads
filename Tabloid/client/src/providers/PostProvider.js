@@ -73,13 +73,30 @@ export const PostProvider = (props) => {
         .then(setPosts))
 
 
-  const getPostById = (postId) => {
-    return fetch(`/api/Post/GetById/${postId}`)
+  const getPostById = (postId) =>
+    getToken().then((token) => fetch(`/api/Post/GetById/${postId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    }))
       .then((res) => res.json())
-  };
+
+
+  const editPost = (post) =>
+    getToken().then((token) =>
+      fetch(`/api/post/${post.id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      }))
+      .then(getPosts())
 
   return (
-    <PostContext.Provider value={{ posts, getPosts, getUserPosts, getPostDetails, getPostById, getPostsByCategoryId, addPost }}>
+    <PostContext.Provider value={{ posts, getPosts, getUserPosts, getPostDetails, getPostById, getPostsByCategoryId, addPost, editPost }}>
       {props.children}
     </PostContext.Provider>
   );

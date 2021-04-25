@@ -169,7 +169,7 @@ namespace Tabloid.Repositories
                 }
             }
         }
-        public List<Post> GetPostById(int PostId)
+        public Post GetPostById(int PostId)
         {
             using (var conn = Connection)
             {
@@ -188,11 +188,9 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@id", PostId);
                     var reader = cmd.ExecuteReader();
 
-                    var posts = new List<Post>();
-
-                    while (reader.Read())
+                    if (reader.Read())
                     {
-                        posts.Add(new Post()
+                        Post post = new Post()
                         {
                             Id = DbUtils.GetInt(reader, "PostId"),
                             Title = DbUtils.GetString(reader, "Title"),
@@ -211,12 +209,13 @@ namespace Tabloid.Repositories
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
                                 DisplayName = DbUtils.GetString(reader, "DisplayName")
                             }
-                        });
+                        };
+                        reader.Close();
+                        return post;
                     }
 
                     reader.Close();
-
-                    return posts;
+                    return null;
                 }
             }
         }
