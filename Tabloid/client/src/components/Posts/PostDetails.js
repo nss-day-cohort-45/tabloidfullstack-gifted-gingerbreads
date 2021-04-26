@@ -28,7 +28,7 @@ const PostDetails = () => {
               {post.title}
             </strong>
             <img src={post.imageLocation} alt="No image available"></img>
-            <p>{post.content}</p>
+            <p className="postContent">{post.content}</p>
             <p>Published on {post.publishDateTime}</p>
             <p>Published by {post.postAuthor.displayName}</p>
           </div>
@@ -40,7 +40,7 @@ const PostDetails = () => {
       <button onClick={() => {
         history.push(`/comment/${postId}/create`)
       }}>Add A Comment</button>
-      
+
     </>
   );
 };
