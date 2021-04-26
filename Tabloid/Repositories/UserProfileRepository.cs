@@ -9,7 +9,6 @@ namespace Tabloid.Repositories
     {
         public UserProfileRepository(IConfiguration configuration) : base(configuration) { }
 
-        //TODO figure out deactivated nullable datetime
         public List<UserProfile> GetAllUserProfiles()
         {
             using (var conn = Connection)
@@ -19,7 +18,7 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                        SELECT u.id, u.FirstName, u.LastName, u.DisplayName, u.Email, u.FirebaseUserId,
-                              u.CreateDateTime, u.ImageLocation, u.UserTypeId, u.Deactivated,
+                              u.CreateDateTime, u.ImageLocation, u.UserTypeId,
                               ut.[Name] AS UserTypeName
                          FROM UserProfile u
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id";
@@ -41,7 +40,6 @@ namespace Tabloid.Repositories
                             CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                             ImageLocation = DbUtils.GetNullableString(reader, "ImageLocation"),
                             UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
-                            //Deactivated = DbUtils.GetNullableDateTime(reader, "Deactivated"),
                             UserType = new UserType()
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
