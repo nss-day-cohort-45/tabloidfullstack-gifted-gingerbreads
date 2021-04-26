@@ -9,7 +9,6 @@ namespace Tabloid.Repositories
     {
         public UserProfileRepository(IConfiguration configuration) : base(configuration) { }
 
-        //TODO figure out deactivated nullable datetime
         public List<UserProfile> GetAllUserProfiles()
         {
             using (var conn = Connection)
@@ -19,7 +18,7 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                        SELECT u.id, u.FirstName, u.LastName, u.DisplayName, u.Email, u.FirebaseUserId,
-                              u.CreateDateTime, u.ImageLocation, u.UserTypeId, u.Deactivated,
+                              u.CreateDateTime, u.ImageLocation, u.UserTypeId,
                               ut.[Name] AS UserTypeName
                          FROM UserProfile u
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id";
@@ -39,9 +38,8 @@ namespace Tabloid.Repositories
                             DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
                             Email = reader.GetString(reader.GetOrdinal("Email")),
                             CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-                            //ImageLocation = DbUtils.GetNullableString(reader, "ImageLocation"),
+                            ImageLocation = DbUtils.GetNullableString(reader, "ImageLocation"),
                             UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
-                            //Deactivated = DbUtils.GetNullableDateTime(reader, "Deactivated"),git 
                             UserType = new UserType()
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
@@ -179,61 +177,5 @@ namespace Tabloid.Repositories
                 }
             }
         }
-
-
-        public void DeactivateUserById(int id)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                        UPDATE UserProfile 
-                            SET
-                                Deactivated = 1
-                        WHERE id = @id";
-
-                    cmd.Parameters.AddWithValue("@id", id);
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public void ReactivateUserById(int id)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                        UPDATE UserProfile 
-                            SET
-                                Deactivated = 0
-                        WHERE id = @id";
-
-                    cmd.Parameters.AddWithValue("@id", id);
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        /*
-        public UserProfile GetByFirebaseUserId(string firebaseUserId)
-        {
-            return _context.UserProfile
-                       .Include(up => up.UserType) 
-                       .FirstOrDefault(up => up.FirebaseUserId == firebaseUserId);
-        }
-
-        public void Add(UserProfile userProfile)
-        {
-            _context.Add(userProfile);
-            _context.SaveChanges();
-        }
-        */
     }
 }

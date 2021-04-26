@@ -46,5 +46,7 @@ namespace Tabloid.Models
                 return $"{FirstName} {LastName}";
             }
         }
+
+        public DateTime Deactivated { get; set; }
     }
 }
