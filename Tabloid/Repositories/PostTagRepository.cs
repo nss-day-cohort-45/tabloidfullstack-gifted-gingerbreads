@@ -71,47 +71,6 @@ namespace Tabloid.Repositories
             }
         }
 
-        //public List<PostTag> GetAll()
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //                SELECT Id, PostId, TagId
-        //                LEFT JOIN Category c ON c.Id = p.CategoryId
-        //                LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
-        //                FROM PostTag
-        //            ";
-
-        //            using (SqlDataReader reader = cmd.ExecuteReader())
-        //            {
-        //                var postTags = new List<PostTag>();
-        //                while (reader.Read())
-        //                {
-        //                    postTags.Add(new Tag()
-        //                    {
-        //                        Id = DbUtils.GetInt(reader, "Id"),
-        //                        PostId = DbUtils.GetInt(reader, "PostId"), 
-        //                        Post = new Category()
-        //                        {
-        //                            Id = DbUtils.GetInt(reader, "CategoryId"),
-        //                            Name = DbUtils.GetString(reader, "Name")
-        //                        },
-
-        //                        TagId = DbUtils.GetInt(reader, "TagId"),
-
-        //                    });
-        //                }
-
-        //                reader.Close();
-        //                return postTags;
-        //            }
-        //        }
-        //    }
-        //}
-
 
         public PostTag GetPostTagById(int id)
         {
@@ -158,7 +117,7 @@ namespace Tabloid.Repositories
 
                     int id = (int)cmd.ExecuteScalar();
 
-                    //postTag.Id = id;
+                    postTag.Id = id;
                 }
             }
         }

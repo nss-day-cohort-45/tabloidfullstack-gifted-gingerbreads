@@ -33,7 +33,7 @@ namespace Tabloid.Controllers
         public IActionResult Post(PostTag postTag)
         {
             _postTagRepo.Add(postTag);
-            return CreatedAtAction("Get", new { id = postTag.Id }, postTag);
+            return CreatedAtAction("Details", new { id = postTag.Id }, postTag);
         }
 
         [HttpDelete("Delete/{id}")]
