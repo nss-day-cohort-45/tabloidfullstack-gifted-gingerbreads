@@ -27,13 +27,13 @@ export default function Header() {
             {isLoggedIn &&
               <NavItem className="nav-bar-link-container">
                 <NavLink tag={RRNavLink} className="nav-link" to="/">Home</NavLink>
+                <NavLink tag={RRNavLink} className="nav-link" to="/userProfiles">User Profiles</NavLink>
                 <NavLink tag={RRNavLink} className="nav-link" to="/tags">Tags</NavLink>
                 <NavLink tag={RRNavLink} className="nav-link" to="/api/category">Category Management</NavLink>
                 <NavLink tag={RRNavLink} className="nav-link" to="/Posts">Posts</NavLink>
                 <NavLink tag={RRNavLink} className="nav-link" to="/UserPosts">My Posts</NavLink>
                 <NavLink tag={RRNavLink} className="nav-link" to="/Posts/NewPost">New Post</NavLink>
               </NavItem>
-
             }
           </Nav>
           <Nav navbar>
