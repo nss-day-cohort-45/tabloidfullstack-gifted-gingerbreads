@@ -88,7 +88,6 @@ namespace Tabloid.Repositories
 
                     int id = (int)cmd.ExecuteScalar();
 
-                    postTag.Id = id;
                 }
             }
         }

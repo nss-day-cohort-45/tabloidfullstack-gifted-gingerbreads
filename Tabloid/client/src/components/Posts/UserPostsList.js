@@ -1,14 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import { PostContext } from "../../providers/PostProvider";
-import { Link } from "react-router-dom";
-import { Button } from "reactstrap"
+import { Link, useHistory } from "react-router-dom";
+import { Button } from "reactstrap";
 
 
 const UserPostList = () => {
   const { posts, getUserPosts } = useContext(PostContext);
 
+  const history = useHistory();
+
   useEffect(() => {
-    getUserPosts(JSON.parse(sessionStorage.userProfile).id)
+    getUserPosts()
   }, []);
 
   return (
@@ -26,6 +28,11 @@ const UserPostList = () => {
             <Link to={`/post/edit/${post.id}`} style={{ color: `#FFF` }}>
               Edit This Post
             </Link>
+          </Button>
+          <Button className="btn" variant="primary" size="sm">
+            <Link className="deletePost" to={`/Post/${post.id}/Delete`} post_title={post.title}>
+              Delete
+                </Link>
           </Button>
         </div>
       ))}

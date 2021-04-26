@@ -71,7 +71,7 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
 
-        [HttpDelete("/delete/{postId}")]
+        [HttpDelete("delete/{postId}")]
         public IActionResult Delete(int postId)
         {
             _postRepository.Delete(postId);
