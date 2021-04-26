@@ -23,6 +23,7 @@ import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
 import PostDetails from "./Posts/PostDetails"
 import AddPostForm from "./Posts/AddPost"
+import DeletePost from "./Posts/DeletePost"
 import { PostProvider } from "../providers/PostProvider";
 import { PostTagProvider } from "../providers/PostTagProvider";
 import { TagProvider } from "../providers/TagProvider";
@@ -130,6 +131,10 @@ export default function ApplicationViews() {
 
           <Route exact path="/Posts/NewPost">
             <AddPostForm />
+          </Route>
+
+          <Route exact path="/Post/:postId(\d+)/Delete">
+            <DeletePost />
           </Route>
         </CategoryProvider>
       </PostProvider>
