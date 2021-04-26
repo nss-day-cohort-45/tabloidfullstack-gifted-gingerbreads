@@ -24,7 +24,7 @@ const Tag = ({ tag }) => {
         <Card className="m-4 tag-card">
             <CardBody>
                 <p>
-                    <strong>Tag: {tag.name}</strong>
+                    <strong>{tag.name}</strong>
                 </p>
                 <Button onClick={GoToEditTag} className="button" size="sm" outline color="secondary">Edit</Button>
                 <Button onClick={GoToDeleteTag} className="button" size="sm" outline color="secondary">Delete</Button>

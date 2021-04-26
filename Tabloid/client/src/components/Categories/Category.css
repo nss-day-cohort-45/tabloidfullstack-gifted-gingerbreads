@@ -1,29 +1,20 @@
-
-.tag-container {
+.category-container {
     margin: 0 auto;
     padding: 1em;
     text-align: center;
 }
 
-.tag-form{
-    margin: 0 auto;
-    width: 50em;
-}
-
-.tag-form--button-row {
-    float: right;
-}
-
-.tag-header-row {
+.category-header-row {
     margin: 0 auto;
 }
 
-.tag-card-container {
+.category-card-container {
     display: flex;
+    flex-wrap: wrap;
     margin: 0 auto;
 }
 
-.tag-card {
+.category-card {
     display: flex;
 }
 
