@@ -56,7 +56,7 @@ export const AddPostForm = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="content">Content:</label>
-                    <textarea name="content" id="content" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Content" value={post.content} />
+                    <textarea name="content" id="content" rows="20" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Content" value={post.content} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="imageLocation">Image Location:</label>
@@ -80,8 +80,8 @@ export const AddPostForm = () => {
                     </select>
                 </div>
             </fieldset>
-            <Button onClick={handleSavePost}>
-                <Link className="savePost" to={"/Posts"}>
+            <Button color="primary" onClick={handleSavePost}>
+                <Link className="savePost" to={"/Posts"} style={{ color: `#FFF` }}>
                     Save Post
                 </Link>
             </Button>
