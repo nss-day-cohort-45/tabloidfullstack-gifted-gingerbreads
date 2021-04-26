@@ -122,7 +122,7 @@ export default function ApplicationViews() {
             <UserPostList />
           </Route>
 
-          <Route exact path="/Post/:postId(\d+)">
+          <Route exact path="/Post/GetById/:postId(\d+)">
             <PostDetails />
           </Route>
 

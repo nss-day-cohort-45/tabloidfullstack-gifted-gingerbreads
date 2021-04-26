@@ -1,22 +1,25 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { useParams, useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
 import { ManagePostTags } from "../postTag/ManagePostTags.js";
 
 const PostDetails = () => {
-  const { posts, getPostDetails } = useContext(PostContext);
+  const { posts, getPostById } = useContext(PostContext);
 
   let { postId } = useParams()
   const history = useHistory();
 
+  const [post, setPost] = useState({});
 
-  console.log(posts[0]?.imageLocation)
+
 
   useEffect(() => {
-    getPostDetails(postId);
-  }, []);
+    getPostById(postId)
+      .then((res) => setPost(res))
+  }, [])
 
+  console.log(post)
   const ManagePostTags = () => {
     history.push(`/posttag/manage-tags/${postId}`)
   }
@@ -24,18 +27,17 @@ const PostDetails = () => {
   return (
     <>
       <div>
-        {posts.map((post) => (
-          <div key={post.id}>
-            <Button onClick={ManagePostTags}>Manage Tags</Button>
-            <strong>
-              {post.title}
-            </strong>
-            <img src={post.imageLocation} alt="No image available"></img>
-            <p>{post.content}</p>
-            <p>Published on {post.publishDateTime}</p>
-            <p>Published by {post.postAuthor.displayName}</p>
-          </div>
-        ))}
+
+        <div key={post.id}>
+          <Button onClick={ManagePostTags}>Manage Tags</Button>
+          <strong>
+            {post.title}
+          </strong>
+          <img src={post.imageLocation} alt="No image available"></img>
+          <p>{post.content}</p>
+          <p>Published on {post.publishDateTime}</p>
+          <p>Published by {post.postAuthor.displayName}</p>
+        </div>
       </div>
       <button onClick={() => {
         history.push(`/comments/${postId}`)

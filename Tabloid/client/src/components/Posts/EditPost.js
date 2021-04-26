@@ -21,6 +21,7 @@ export const EditPost = () => {
 
     console.log(post, "post")
 
+
     const handleControlledInputChange = (event) => {
         const freshPost = { ...post };
 

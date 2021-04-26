@@ -78,7 +78,7 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
-        [HttpPut("edit/{postId}")]
+        [HttpPut("edit")]
         public IActionResult Put(int PostId, Post post)
         {
             if (PostId != post.Id)
