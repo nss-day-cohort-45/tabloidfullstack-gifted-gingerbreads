@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;600&display=swap');
+
 .category-container {
     margin: 0 auto;
     padding: 1em;
@@ -20,4 +23,17 @@
 
 .form-control {
     margin-bottom: 1em;
+}
+
+.category-form--button-row {
+    
+}
+
+.category-form {
+    margin: 0 auto;
+    width: 50em;
+}
+
+h1 {
+    font-family: 'Crimson Text', serif;
 }
