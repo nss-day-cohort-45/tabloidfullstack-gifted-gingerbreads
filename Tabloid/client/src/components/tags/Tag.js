@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Card, CardBody } from "reactstrap";
 import { TagContext } from "../../providers/TagProvider.js";
+import "./Tag.css"
 
 const Tag = ({ tag }) => {
     const { getAllTags } = useContext(TagContext);
@@ -20,14 +21,13 @@ const Tag = ({ tag }) => {
     }
 
     return (
-        <Card className="m-4">
-            <p className="text-left px-2">Tag Name: {tag.name}</p>
+        <Card className="m-4 tag-card">
             <CardBody>
                 <p>
                     <strong>{tag.name}</strong>
                 </p>
-                <Button onClick={GoToEditTag}>Edit</Button>
-                <Button onClick={GoToDeleteTag}>Delete</Button>
+                <Button onClick={GoToEditTag} className="button" size="sm" outline color="secondary">Edit</Button>
+                <Button onClick={GoToDeleteTag} className="button" size="sm" outline color="secondary">Delete</Button>
             </CardBody>
         </Card >
     );

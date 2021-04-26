@@ -1,0 +1,32 @@
+
+.tag-container {
+    margin: 0 auto;
+    padding: 1em;
+    text-align: center;
+}
+
+.tag-form{
+    margin: 0 auto;
+    width: 50em;
+}
+
+.tag-form--button-row {
+    float: right;
+}
+
+.tag-header-row {
+    margin: 0 auto;
+}
+
+.tag-card-container {
+    display: flex;
+    margin: 0 auto;
+}
+
+.tag-card {
+    display: flex;
+}
+
+.form-control {
+    margin-bottom: 1em;
+}

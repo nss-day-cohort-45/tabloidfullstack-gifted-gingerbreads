@@ -18,23 +18,22 @@ export default function Header() {
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
+      <Navbar className="nav-bar-link-container" color="light" light expand="md">
         <NavbarBrand tag={RRNavLink} to="/">Tabloid</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             { /* When isLoggedIn === true, we will render the Home link */}
             {isLoggedIn &&
-              <NavItem>
-                <NavLink tag={RRNavLink} to="/">Home</NavLink>
-                <NavLink tag={RRNavLink} to="/userProfiles">User Profiles</NavLink>
-                <NavLink tag={RRNavLink} to="/tags">Tags</NavLink>
-                <NavLink tag={RRNavLink} to="/api/category">Category Management</NavLink>
-                <NavLink tag={RRNavLink} to="/Posts">Posts</NavLink>
-                <NavLink tag={RRNavLink} to="/UserPosts">My Posts</NavLink>
-                <NavLink tag={RRNavLink} to="/Posts/NewPost">New Post</NavLink>
+              <NavItem className="nav-bar-link-container">
+                <NavLink tag={RRNavLink} className="nav-link" to="/">Home</NavLink>
+                <NavLink tag={RRNavLink} className="nav-link" to="/userProfiles">User Profiles</NavLink>
+                <NavLink tag={RRNavLink} className="nav-link" to="/tags">Tags</NavLink>
+                <NavLink tag={RRNavLink} className="nav-link" to="/api/category">Category Management</NavLink>
+                <NavLink tag={RRNavLink} className="nav-link" to="/Posts">Posts</NavLink>
+                <NavLink tag={RRNavLink} className="nav-link" to="/UserPosts">My Posts</NavLink>
+                <NavLink tag={RRNavLink} className="nav-link" to="/Posts/NewPost">New Post</NavLink>
               </NavItem>
-
             }
           </Nav>
           <Nav navbar>
@@ -43,10 +42,6 @@ export default function Header() {
                 <NavItem>
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
-                </NavItem>
-           
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/api/category">Category Management</NavLink>
                 </NavItem>
               </>
             }

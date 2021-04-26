@@ -118,7 +118,7 @@ namespace Tabloid.Repositories
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
                                
-                         WHERE up.UserTypeId = ut.id";
+                         WHERE up.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 

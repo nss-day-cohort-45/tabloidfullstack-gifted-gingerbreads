@@ -1,45 +1,33 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Button, Card, CardBody } from "reactstrap";
-import { TagContext } from "../../providers/TagProvider.js";
 import { PostTagContext } from "../../providers/PostTagProvider.js";
+import { TagContext } from "../../providers/TagProvider.js";
 
-const TagsForPost = ({ tag }) => {
-    const { addPostTag, deletePostTag, getAllPostTagsForPost } = useContext(PostTagContext);
+const DeleteTagForPost = ({ postTag }) => {
+    const { deletePostTag } = useContext(PostTagContext);
     const { postId } = useParams();
-    const [postTag, setPostTag] = useState({})
-    const { getAllTags } = useContext(TagContext);
     const history = useHistory();
-
-    useEffect(() => {
-        getAllTags()
-        getAllPostTagsForPost(postId)
-    }, []);
-
-    const handleAddPostTag = () => {
-        addPostTag(postTag)
-        history.push("/posts")
-    };
 
     const handleDeletePostTag = () => {
         deletePostTag(postTag.id)
             .then(() => {
-                history.push("/posts")
+                history.push(`/post/GetById/${postId}`)
             })
     };
 
+    console.log(postTag, "post tag")
 
     return (
         <Card className="m-4">
             <CardBody>
                 <p>
-                    <strong>{tag.name}</strong>
+                    <strong>{postTag.tag.name}</strong>
                 </p>
-                <Button onClick={handleAddPostTag}>Add</Button>
                 <Button onClick={handleDeletePostTag}>Remove</Button>
             </CardBody>
         </Card >
     );
 };
 
-export default TagsForPost;
+export default DeleteTagForPost;

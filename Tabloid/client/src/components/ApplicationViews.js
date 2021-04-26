@@ -114,48 +114,52 @@ export default function ApplicationViews() {
 
       <PostProvider>
         <CategoryProvider>
-          <CommentProvider>
-            <Route path="/comments/:postId(\d+)">
-              {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
-            </Route>
+          <PostTagProvider>
+            <TagProvider>
+              <CommentProvider>
+                <Route path="/comments/:postId(\d+)">
+                  {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
+                </Route>
 
-            <Route path="/comment/:postId(\d+)/create" exact>
-              {isLoggedIn ? <CommentCreateForm /> : <Redirect to="/login" />}
-            </Route>
+                <Route path="/comment/:postId(\d+)/create" exact>
+                  {isLoggedIn ? <CommentCreateForm /> : <Redirect to="/login" />}
+                </Route>
 
-            <Route path="/comment/:commentId(\d+)/edit" exact>
-              {isLoggedIn ? <CommentEditForm /> : <Redirect to="/login" />}
-            </Route>
+                <Route path="/comment/:commentId(\d+)/edit" exact>
+                  {isLoggedIn ? <CommentEditForm /> : <Redirect to="/login" />}
+                </Route>
 
-            <Route path="/comment/:commentId(\d+)" exact>
-              {isLoggedIn ? <CommentDeletionConfirmation /> : <Redirect to="/login" />}
-            </Route>
-          </CommentProvider>
+                <Route path="/comment/:commentId(\d+)" exact>
+                  {isLoggedIn ? <CommentDeletionConfirmation /> : <Redirect to="/login" />}
+                </Route>
+              </CommentProvider>
 
 
-          <Route exact path="/Posts">
-            {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
-          </Route>
+              <Route exact path="/Posts">
+                {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
+              </Route>
 
-          <Route exact path="/UserPosts">
-            <UserPostList />
-          </Route>
+              <Route exact path="/UserPosts">
+                <UserPostList />
+              </Route>
 
-          <Route exact path="/Post/GetById/:postId(\d+)">
-            <PostDetails />
-          </Route>
+              <Route exact path="/Post/GetById/:postId(\d+)">
+                <PostDetails />
+              </Route>
 
-          <Route exact path="/Post/edit/:postId(\d+)">
-            <EditPost />
-          </Route>
+              <Route exact path="/Post/edit/:postId(\d+)">
+                <EditPost />
+              </Route>
 
-          <Route exact path="/Posts/NewPost">
-            <AddPostForm />
-          </Route>
+              <Route exact path="/Posts/NewPost">
+                <AddPostForm />
+              </Route>
 
-          <Route exact path="/Post/:postId(\d+)/Delete">
-            <DeletePost />
-          </Route>
+              <Route exact path="/Post/:postId(\d+)/Delete">
+                <DeletePost />
+              </Route>
+            </TagProvider>
+          </PostTagProvider>
         </CategoryProvider>
       </PostProvider>
 

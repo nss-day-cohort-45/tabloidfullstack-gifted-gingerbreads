@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import { Button } from "reactstrap";
+import { Button, Row } from "reactstrap";
 import { Link } from "react-router-dom";
+import "./Category.css"
 
 
 
@@ -34,7 +35,9 @@ export const CategoryForm = () => {
 
     return (
         <section className="post_form">
-            <h2 className="post_form_header">Category</h2>
+            <Row>
+                <h1>Category</h1>
+            </Row>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>

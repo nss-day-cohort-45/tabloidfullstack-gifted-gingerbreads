@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from "react";
+import { Row, Container, Col, Button } from "reactstrap";
+import { Link } from "react-router-dom";
 import { CategoryContext } from "../../providers/CategoryProvider"
 import Category from "./Category";
-import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import "./Category.css"
 
 
 const CategoryList = () => {
@@ -13,21 +14,30 @@ const CategoryList = () => {
     }, []);
 
     return (
-
-        <div className="container">
-            <Button className="btn" color="primary" variant="secondary" size="sm">
-                <Link className="newCategory" to={"/category/addnew"} style={{ color: `#FFF` }}>
-                    Add Category
-                </Link>
-            </Button>
-            <div className="row justify-content-center">
-                <div className="cards-column">
+        <Container className="category-container">
+            <Row className="category-header-row">
+                <Col>
+                </Col>
+                <Col>
+                    <h1>Category Management</h1>
+                </Col>
+                <Col>
+                    <Button className="btn" variant="secondary" size="sm">
+                        <Link className="newCategory" to={"/category/addnew"} style={{ color: `#FFF` }}>
+                            Add Category
+                        </Link>
+                    </Button>
+                </Col>
+            </Row>
+            <hr></hr>
+            <Row>
+                <div className="category-card-container">
                     {categories.map((category) => (
                         <Category key={category.id} category={category} />
                     ))}
                 </div>
-            </div>
-        </div>
+            </Row>
+        </Container>
     );
 };
 

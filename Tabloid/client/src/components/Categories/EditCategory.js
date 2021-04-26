@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import { Button } from "reactstrap";
+import { Form, Button, Row } from "reactstrap";
 import { Link, useParams } from "react-router-dom";
+import "./Category.css"
+
 
 export const EditCategory = () => {
     const { editCategory, getCategoryById } = useContext(CategoryContext);
@@ -33,25 +35,32 @@ export const EditCategory = () => {
         })
     };
     return (
-        <section className="post_form">
-            <h2 className="post_form_header">Category</h2>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input
-                        type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder={category.name} value={category.name} />
-                </div>
-            </fieldset>
-            <Button color="warning" onClick={handleSave}>
-                <Link className="saveCategory" to={"/api/category"} style={{ color: `#FFF` }}>
-                    Save Category
-                </Link>
-            </Button>
-            <Button color="warning" className="cancel">
-                <Link to={"/api/category"} style={{ color: `#FFF` }}>Cancel</Link>
-            </Button>
-
-        </section>
+        <div>
+            <Form className="category-form">
+                <Row>
+                    <h1>Edit Category</h1>
+                </Row>
+                <Row>
+                    <fieldset>
+                        <div>
+                            <label htmlFor="name">Name:</label>
+                            <input
+                                type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder={category.name} value={category.name} />
+                        </div>
+                    </fieldset>
+                </Row>
+                <Row className="category-form--button-row">
+                    <Button className="button" onClick={handleSave}>
+                        <Link className="saveCategory" to={"/api/category"} style={{ color: `#FFF` }}>
+                            Save Category
+                        </Link>
+                    </Button>
+                    <Button className="button" className="cancel">
+                        <Link to={"/api/category"} style={{ color: `#FFF` }}>Cancel</Link>
+                    </Button>
+                </Row>
+            </Form>
+        </div>
     )
 
 };
