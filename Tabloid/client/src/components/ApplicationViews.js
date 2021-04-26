@@ -13,6 +13,7 @@ import { UserProfileDetails } from "./userprofiles/UserProfileDetails"
 import { CommentProvider } from "../providers/CommentProvider";
 import CommentList from "./Comments.js/CommentList";
 import CommentCreateForm from "./Comments.js/CommentCreateForm";
+import CommentEditForm from "./Comments.js/CommentEditForm";
 import CommentDeletionConfirmation from "./Comments.js/CommentDeletionConfirmation";
 import TagList from "./tags/TagList";
 import TagForm from "./tags/TagForm";
@@ -124,6 +125,9 @@ export default function ApplicationViews() {
             {isLoggedIn ? <CommentCreateForm /> : <Redirect to="/login" />}
           </Route>
 
+          <Route path="/comment/:commentId(\d+)/edit" exact>
+            {isLoggedIn ? <CommentEditForm /> : <Redirect to="/login" />}
+          </Route>
 
           <Route path="/comment/:commentId(\d+)" exact>
             {isLoggedIn ? <CommentDeletionConfirmation /> : <Redirect to="/login" />}
