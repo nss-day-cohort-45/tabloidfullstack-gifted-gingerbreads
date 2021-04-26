@@ -14,11 +14,16 @@ export function UserProfileProvider(props) {
   const [userProfiles, setUserProfiles] = useState([])
 
   const getAllUserProfiles = () => {
-    return fetch(`${apiUrl}`)
-    .then(res => res.json())
-    .then(setUserProfiles)
-  }
 
+    return getToken().then((token) =>
+    
+    fetch(`${apiUrl}`, {
+      method: "GET",
+      headers: {
+         Authorization: `Bearer ${token}`}})
+    .then(res => res.json())
+    .then(setUserProfiles))
+  }
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
   useEffect(() => {
@@ -68,8 +73,14 @@ export function UserProfileProvider(props) {
   };
 
   const getUserProfileById = (userProfileId) => {
-    return fetch(`${apiUrl}/getById/${userProfileId}`)
-    .then(res => res.json())
+    return getToken().then((token) =>
+    fetch(`${apiUrl}/getById/${userProfileId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(res => res.json()))
   }
 
   const saveUser = (userProfile) => {
@@ -83,19 +94,6 @@ export function UserProfileProvider(props) {
         body: JSON.stringify(userProfile)
       }).then(resp => resp.json()));
   };
-
-  //deactivate method resembles update method
-  // const updateTrack = track => {
-  //   return fetch(`http://localhost:8088/tracks/${track.id}?_expand=demo`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify(track)
-  //   })
-  //     .then(getTracks)
-  // }
-
 
   return (
     <UserProfileContext.Provider value={{ userProfiles, isLoggedIn, login, logout, register, getToken, getUserProfile, getAllUserProfiles, getUserProfileById}}>
