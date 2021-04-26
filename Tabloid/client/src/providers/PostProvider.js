@@ -33,14 +33,13 @@ export const PostProvider = (props) => {
 
   const getPostDetails = (postId) => {
     return getToken().then((token) =>
-      fetch(`https://localhost:5001/api/Post/GetById?postId=${postId}`, {
+      fetch(`https://localhost:5001/api/Post/GetById/${postId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
         }
-      })
-        .then((res) => res.json())
-        .then(setPosts));
+      }))
+      .then((res) => res.json())
   };
 
   const addPost = (post) => {
@@ -74,13 +73,14 @@ export const PostProvider = (props) => {
 
 
   const getPostById = (postId) =>
-    getToken().then((token) => fetch(`https://localhost:5001/api/Post/GetById/${postId}`, {
+    getToken().then((token) => fetch(`https://localhost:5001/api/Post/GetById?postId=${postId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
-      .then((res) => res.json()))
+      .then((res) => res.json())
+      .then(setPosts))
 
 
   const editPost = (post) =>

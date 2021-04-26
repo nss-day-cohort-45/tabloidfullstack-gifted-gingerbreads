@@ -35,6 +35,9 @@ export const EditPost = () => {
             id: post.id,
             title: post.title,
             content: post.content,
+            imageLocation: post.imageLocation,
+            publishDateTime: post.publishDateTime,
+            isApproved: post.isApproved,
             categoryId: post.categoryId
         })
     };

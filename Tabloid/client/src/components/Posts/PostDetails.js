@@ -10,16 +10,18 @@ const PostDetails = () => {
   let { postId } = useParams()
   const history = useHistory();
 
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState({})
 
-
+  console.log(post)
 
   useEffect(() => {
     getPostById(postId)
-      .then((res) => setPost(res))
-  }, [])
+      .then((res) => {
+        setPost(res)
+      })
+  }, []);
 
-  console.log(post)
+
   const ManagePostTags = () => {
     history.push(`/posttag/manage-tags/${postId}`)
   }
@@ -27,7 +29,6 @@ const PostDetails = () => {
   return (
     <>
       <div>
-
         <div key={post.id}>
           <Button onClick={ManagePostTags}>Manage Tags</Button>
           <strong>
