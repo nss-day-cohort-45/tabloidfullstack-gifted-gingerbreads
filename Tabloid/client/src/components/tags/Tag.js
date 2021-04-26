@@ -26,8 +26,8 @@ const Tag = ({ tag }) => {
                 <p>
                     <strong>Tag: {tag.name}</strong>
                 </p>
-                <Button onClick={GoToEditTag}>Edit</Button>
-                <Button onClick={GoToDeleteTag}>Delete</Button>
+                <Button onClick={GoToEditTag} className="button" size="sm" outline color="secondary">Edit</Button>
+                <Button onClick={GoToDeleteTag} className="button" size="sm" outline color="secondary">Delete</Button>
             </CardBody>
         </Card >
     );

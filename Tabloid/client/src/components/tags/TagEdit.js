@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Form } from "reactstrap";
+import { Form, Button, Row, Container, Col } from "reactstrap";
 import { TagContext } from "../../providers/TagProvider.js";
 import { useParams, useHistory } from "react-router-dom"
 import Card from "reactstrap/lib/Card";
@@ -52,11 +52,17 @@ const TagEdit = () => {
 
     return (
         <div>
-            <Form>
-                <h2>Edit the tag "{tag.name}"</h2>
-                <input onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder={tag.name} id="name"></input>
-                <Button onClick={handleEdit}>Save Changes</Button>
-                <Button onClick={BackToTagsPage}>Go Back</Button>
+            <Form className="tag-form">
+                <Row>
+                    <h1>Edit the tag "{tag.name}"?</h1>
+                </Row>
+                <Row>
+                    <input onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder={tag.name} id="name"></input>
+                </Row>
+                <Row className="tag-form--button-row">
+                    <Button onClick={handleEdit} className="button">Save Changes</Button>
+                    <Button onClick={BackToTagsPage} className="button">Go Back</Button>
+                </Row>
             </Form>
         </div>
     );
