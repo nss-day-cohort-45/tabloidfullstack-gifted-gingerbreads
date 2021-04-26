@@ -29,7 +29,7 @@ const CommentList = () => {
                         <div>User: {comment.userProfile.displayName}</div>
                         <div>Date Created: {comment.createDateTime}</div>
                         <button onClick={() => {
-                            history.push(`/comment/edit/${comment.id}`)
+                            history.push(`/comment/${comment.id}/edit`)
                         }}>Edit
                         </button>
                         <button onClick={() => {
