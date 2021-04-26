@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "../../providers/PostProvider";
 import { useParams, useHistory } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Button, Row } from "reactstrap";
 import { ManagePostTags } from "../postTag/ManagePostTags.js";
+import "./Posts.css"
 
 const PostDetails = () => {
   const { posts, getPostById } = useContext(PostContext);
@@ -28,24 +29,26 @@ const PostDetails = () => {
 
   return (
     <>
-      <div>
+      <div className="post-details-container">
         <div key={post.id}>
-          <Button onClick={ManagePostTags}>Manage Tags</Button>
-          <strong>
+          <h1 className="posts-title">
             {post.title}
-          </strong>
+          </h1>
+          <p className="post-details">Published on {post.publishDateTime}</p>
+          <p className="post-details">Published by {post.postAuthor?.displayName}</p>
           <img src={post.imageLocation} alt="No image available"></img>
           <p>{post.content}</p>
-          <p>Published on {post.publishDateTime}</p>
-          <p>Published by {post.postAuthor?.displayName}</p>
+        </div>
+        <div className="post-details-buttons">
+          <Button onClick={ManagePostTags}>Manage Tags</Button>
+          <Button onClick={() => {
+            history.push(`/comments/${postId}`)
+          }}>View Comments</Button>
+          <Button onClick={() => {
+            history.push(`/comment/${postId}/create`)
+          }}>Add A Comment</Button>
         </div>
       </div>
-      <button onClick={() => {
-        history.push(`/comments/${postId}`)
-      }}>View Comments</button>
-      <button onClick={() => {
-        history.push(`/comment/${postId}/create`)
-      }}>Add A Comment</button>
 
     </>
   );

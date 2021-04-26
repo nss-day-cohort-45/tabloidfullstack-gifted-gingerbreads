@@ -22,14 +22,25 @@
     color: #000;
 }
 
-a:hover {
-    color: #87FF9E !important;
-}
-
 .posts-header {
     margin-bottom: 1em;
 }
 
 .post-card {
     margin-top: 2em;
+}
+
+.post-details-container {
+    margin: 3em;
+}
+
+.post-details-buttons {
+    float: right;
+}
+
+.post-details {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5em;
+    font-style: italic;
 }
