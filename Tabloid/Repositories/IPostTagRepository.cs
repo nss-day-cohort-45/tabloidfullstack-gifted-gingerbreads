@@ -8,5 +8,6 @@ namespace Tabloid.Repositories
         void Add(PostTag postTag);
         void Delete(int postTagId);
         List<PostTag> GetAllPostTagsForPost(int id);
+        PostTag GetPostTagById(int id);
     }
 }

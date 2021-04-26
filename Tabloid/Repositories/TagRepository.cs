@@ -95,14 +95,15 @@ namespace Tabloid.Repositories
         }
 
 
-        public void Update(Tag tag)
+        public void Edit(Tag tag)
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Tag SET Name = @Name WHERE id = @id";
+                    cmd.CommandText = @"
+                        Edit Tag SET Name = @Name WHERE id = @id";
                     cmd.Parameters.AddWithValue("@Name", tag.Name);
                     cmd.Parameters.AddWithValue("@id", tag.Id);
 
@@ -118,8 +119,13 @@ namespace Tabloid.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Tag WHERE id = @id";
+                    cmd.CommandText = @"
+                        DELETE FROM PostTag WHERE TagId = @id;
+                        DELETE FROM Tag WHERE Id = @id";
+
+
                     cmd.Parameters.AddWithValue("@id", id);
+
                     cmd.ExecuteNonQuery();
                 }
             }

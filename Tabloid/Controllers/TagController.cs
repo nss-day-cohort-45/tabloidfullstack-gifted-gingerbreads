@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Repositories;
 using Tabloid.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tabloid.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TagController : ControllerBase
@@ -44,14 +46,14 @@ namespace Tabloid.Controllers
         }
 
         [HttpPut("edit/{id}")]
-        public IActionResult Update(int id, Tag tag)
+        public IActionResult Edit(int id, Tag tag)
         {
             if (id != tag.Id)
             {
                 return BadRequest();
             }
 
-            _tagRepo.Update(tag);
+            _tagRepo.Edit(tag);
             return NoContent();
         }
 

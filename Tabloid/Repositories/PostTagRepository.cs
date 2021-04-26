@@ -71,6 +71,35 @@ namespace Tabloid.Repositories
             }
         }
 
+
+        public PostTag GetPostTagById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            SELECT Id
+                            FROM PostTag
+                            WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        PostTag postTag = new PostTag()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id"))
+                        };
+                        reader.Close();
+                        return postTag;
+                    }
+                    reader.Close();
+                    return null;
+                }
+            }
+        }
+
         public void Add(PostTag postTag)
         {
             using (SqlConnection conn = Connection)
@@ -88,6 +117,7 @@ namespace Tabloid.Repositories
 
                     int id = (int)cmd.ExecuteScalar();
 
+                    postTag.Id = id;
                 }
             }
         }
@@ -110,35 +140,6 @@ namespace Tabloid.Repositories
             }
         }
 
-        //public void UpdatePostTag(PostTag postTag)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //                UPDATE PostTag
-        //                set
-        //                    PostId = @postId,
-        //                    TagId = @tagId
-        //                WHERE Id = @id";
-
-        //            cmd.Parameters.AddWithValue("@postId", postTag.PostId);
-        //            cmd.Parameters.AddWithValue("@tagId", postTag.TagId);
-        //            cmd.Parameters.AddWithValue("@id", postTag.Id);
-
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
-
-
-        // Get all tags for post
-
-        // Add tag to post
-
-        // Edit tags for post
 
     }
 }
