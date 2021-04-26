@@ -164,7 +164,7 @@ namespace Tabloid.Repositories
                     DbUtils.AddParameter(cmd, "@UserProfileId", comment.UserProfileId);
                     DbUtils.AddParameter(cmd, "@Subject", comment.Subject);
                     DbUtils.AddParameter(cmd, "@Content", comment.Content);
-                    DbUtils.AddParameter(cmd, "@CreateDateTime", comment.CreateDateTime); //change format to string 
+                    DbUtils.AddParameter(cmd, "@CreateDateTime", comment.CreateDateTime);
                     DbUtils.AddParameter(cmd, "@Id", comment.Id);
 
                     cmd.ExecuteNonQuery();
