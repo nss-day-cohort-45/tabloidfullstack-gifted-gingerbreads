@@ -6,34 +6,30 @@ import { Link, useParams, useHistory } from "react-router-dom";
 
 const DeleteCategory = () => {
     const { deleteCategory, getCategoryById } = useContext(CategoryContext);
-    const { getPosts } = useContext(PostContext);
+    const { getPostsByCategoryId, posts } = useContext(PostContext);
 
     const { categoryId } = useParams();
+    const [category, setCategory] = useState({})
+
 
     const history = useHistory();
 
-    const [category, setCategory] = useState({})
-
     useEffect(() => {
         getCategoryById(categoryId)
-            .then((response) => {
-                setCategory(response)
-            })
+            .then(getPostsByCategoryId(categoryId))
+            .then(setCategory)
     }, [])
 
-    const handleDelete = () => {
-        const CatIdArray = getPosts.map(p => {
-            return p.categoryId
-        })
+    console.log(category)
 
-        for (const cat of CatIdArray) {
-            if (cat === categoryId) {
-                window.alert("This Category is being used By a post.  Cannot delete.")
-            }
-            else {
-                deleteCategory(category)
-                    .then(history.pushState("/api/category"))
-            }
+    const handleDelete = () => {
+        console.log(posts)
+        if (posts.length === 0) {
+            deleteCategory(categoryId)
+                .then(history.push("/api/category"))
+        }
+        else {
+            window.alert("This Category is being used By a post.  Cannot delete.")
         }
     }
     const handleCancel = () => {
@@ -42,9 +38,9 @@ const DeleteCategory = () => {
 
     return (
         <section>
-            <div className="delete_message"> Are you sure you want to delete {category.did}?</div>
-            <Button className="delete" onClick={handleDelete}>Delete</Button>
-            <Button className="cancel" onClick={handleCancel}>Cancel</Button>
+            <div className="delete_message"> Are you sure you want to delete {category.name}?</div>
+            <Button color="danger" className="delete" onClick={handleDelete}>Delete</Button>
+            <Button color="danger" className="cancel" onClick={handleCancel}>Cancel</Button>
 
         </section>
     )

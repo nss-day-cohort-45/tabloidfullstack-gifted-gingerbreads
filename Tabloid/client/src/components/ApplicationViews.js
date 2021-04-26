@@ -14,7 +14,6 @@ import { CommentProvider } from "../providers/CommentProvider";
 import CommentList from "./Comments.js/CommentList";
 import CommentCreateForm from "./Comments.js/CommentCreateForm";
 import CommentDeletionConfirmation from "./Comments.js/CommentDeletionConfirmation";
-
 import TagList from "./tags/TagList";
 import TagForm from "./tags/TagForm";
 import TagDelete from "./tags/TagDelete";
@@ -33,6 +32,7 @@ import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
 import PostDetails from "./Posts/PostDetails"
 import AddPostForm from "./Posts/AddPost"
+import DeletePost from "./Posts/DeletePost"
 import { PostProvider } from "../providers/PostProvider";
 
 
@@ -104,9 +104,11 @@ export default function ApplicationViews() {
         </CategoryProvider>
       </Route>
       <Route path="/category/delete/:categoryId(\d+)">
-        <CategoryProvider>
-          <DeleteCategory />
-        </CategoryProvider>
+        <PostProvider>
+          <CategoryProvider>
+            <DeleteCategory />
+          </CategoryProvider>
+        </PostProvider>
       </Route>
 
 
@@ -143,6 +145,10 @@ export default function ApplicationViews() {
 
           <Route exact path="/Posts/NewPost">
             <AddPostForm />
+          </Route>
+
+          <Route exact path="/Post/:postId(\d+)/Delete">
+            <DeletePost />
           </Route>
         </CategoryProvider>
       </PostProvider>

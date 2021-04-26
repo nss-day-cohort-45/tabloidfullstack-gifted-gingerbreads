@@ -38,6 +38,19 @@ namespace Tabloid.Controllers
             return Ok(userPosts);
         }
 
+        [HttpGet("GetByCategory")]
+        public IActionResult GetByCategory(int categoryId)
+        {
+            var userPosts = _postRepository.GetPostsByCategory(categoryId);
+            if (userPosts == null)
+            {
+                return NotFound();
+            }
+            return Ok(userPosts);
+        }
+
+
+
         [HttpGet("GetById")]
         public IActionResult GetById(int postId)
         {
@@ -58,7 +71,7 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
 
-        [HttpDelete("/delete/{postId}")]
+        [HttpDelete("delete/{postId}")]
         public IActionResult Delete(int postId)
         {
             _postRepository.Delete(postId);
