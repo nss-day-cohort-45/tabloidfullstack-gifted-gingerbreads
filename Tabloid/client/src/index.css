@@ -32,3 +32,15 @@ h1 {
 button {
   margin: .25em;
 }
+
+.nav-link {
+}
+
+.nav-bar-link-container {
+  margin: 0 auto;
+}
+
+.nav-bar-link-container {
+  display: flex;
+  margin: 0 auto;
+}
