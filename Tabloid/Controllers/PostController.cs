@@ -51,7 +51,7 @@ namespace Tabloid.Controllers
 
 
 
-        [HttpGet("GetById")]
+        [HttpGet("GetById/{postId}")]
         public IActionResult GetById(int postId)
         {
             var post = _postRepository.GetPostById(postId);
@@ -78,10 +78,10 @@ namespace Tabloid.Controllers
             return NoContent();
         }
 
-        [HttpPut("{postId}")]
-        public IActionResult Put(int PostId, Post post)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Post post)
         {
-            if (PostId != post.Id)
+            if (id != post.Id)
             {
                 return BadRequest();
             }

@@ -169,7 +169,7 @@ namespace Tabloid.Repositories
                 }
             }
         }
-        public List<Post> GetPostById(int PostId)
+        public Post GetPostById(int PostId)
         {
             using (var conn = Connection)
             {
@@ -188,11 +188,9 @@ namespace Tabloid.Repositories
                     cmd.Parameters.AddWithValue("@id", PostId);
                     var reader = cmd.ExecuteReader();
 
-                    var posts = new List<Post>();
-
-                    while (reader.Read())
+                    if (reader.Read())
                     {
-                        posts.Add(new Post()
+                        Post post = new Post()
                         {
                             Id = DbUtils.GetInt(reader, "PostId"),
                             Title = DbUtils.GetString(reader, "Title"),
@@ -211,12 +209,13 @@ namespace Tabloid.Repositories
                                 Id = DbUtils.GetInt(reader, "UserProfileId"),
                                 DisplayName = DbUtils.GetString(reader, "DisplayName")
                             }
-                        });
+                        };
+                        reader.Close();
+                        return post;
                     }
 
                     reader.Close();
-
-                    return posts;
+                    return null;
                 }
             }
         }
@@ -243,10 +242,10 @@ namespace Tabloid.Repositories
                     DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
 
                     post.Id = (int)cmd.ExecuteScalar();
-                }                                                  
-            }                                                      
+                }
+            }
         }
-        
+
         public void Delete(int postId)
         {
             using (var conn = Connection)
@@ -275,21 +274,24 @@ namespace Tabloid.Repositories
                     cmd.CommandText = @"
                         UPDATE Post
                            SET Title = @Title,
-                           SET Content = @Content,
-                           SET ImageLocation = @ImageLocation,
-                           SET PublishDateTime = @PublishDateTime,
-                           SET CategoryId = @CategoryId
-                         WHERE Id = @Id";
+                           Content = @Content,
+                            ImageLocation = @ImageLocation,
+                            PublishDateTime = @PublishDateTime,  
+                             IsApproved = @IsApproved,
+                            CategoryId = @CategoryId
+                         WHERE id = @id";
 
                     DbUtils.AddParameter(cmd, "@Title", post.Title);
                     DbUtils.AddParameter(cmd, "@Content", post.Content);
                     DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
                     DbUtils.AddParameter(cmd, "@PublishDateTime", post.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@IsApproved", post.IsApproved);
                     DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@id", post.Id);
 
                     cmd.ExecuteNonQuery();
                 }
             }
         }
-    }                                                              
-}                                                                  
+    }
+}

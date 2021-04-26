@@ -9,6 +9,7 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import { UserProfileProvider } from "../providers/UserProfileProvider"
 import { UserProfileList } from "./userprofiles/UserProfileList"
 import { UserProfileDetails } from "./userprofiles/UserProfileDetails"
+import { PostProvider } from "../providers/PostProvider"
 
 import { CommentProvider } from "../providers/CommentProvider";
 import CommentList from "./Comments.js/CommentList";
@@ -22,20 +23,17 @@ import TagEdit from "./tags/TagEdit";
 import ManagePostTags from "./postTag/ManagePostTags";
 import { PostTagProvider } from "../providers/PostTagProvider";
 import { TagProvider } from "../providers/TagProvider";
-
 import CategoryList from "./Categories/CategoryList";
 import CategoryProvider, { CategoryContext } from "../providers/CategoryProvider"
 import CategoryForm from "./Categories/CategoryForm"
 import EditCategory from "./Categories/EditCategory"
 import DeleteCategory from "./Categories/DeleteCategory"
-
 import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
 import PostDetails from "./Posts/PostDetails"
 import AddPostForm from "./Posts/AddPost"
 import DeletePost from "./Posts/DeletePost"
-import { PostProvider } from "../providers/PostProvider";
-
+import { EditPost } from "./Posts/EditPost";
 
 export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -85,7 +83,7 @@ export default function ApplicationViews() {
             <UserProfileList />
           </Route>
           <Route exact path="/userProfiles/detail/getById/:userProfileId(\d+)">
-              <UserProfileDetails />
+            <UserProfileDetails />
           </Route>
         </UserProfileProvider>
       </Switch>
@@ -116,35 +114,39 @@ export default function ApplicationViews() {
 
       <PostProvider>
         <CategoryProvider>
-        <CommentProvider>
-          <Route path="/comments/:postId(\d+)">
-            {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
+          <CommentProvider>
+            <Route path="/comments/:postId(\d+)">
+              {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
+            </Route>
+
+            <Route path="/comment/:postId(\d+)/create" exact>
+              {isLoggedIn ? <CommentCreateForm /> : <Redirect to="/login" />}
+            </Route>
+
+            <Route path="/comment/:commentId(\d+)/edit" exact>
+              {isLoggedIn ? <CommentEditForm /> : <Redirect to="/login" />}
+            </Route>
+
+            <Route path="/comment/:commentId(\d+)" exact>
+              {isLoggedIn ? <CommentDeletionConfirmation /> : <Redirect to="/login" />}
+            </Route>
+          </CommentProvider>
+
+
+          <Route exact path="/Posts">
+            {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
           </Route>
-
-          <Route path="/comment/:postId(\d+)/create" exact>
-            {isLoggedIn ? <CommentCreateForm /> : <Redirect to="/login" />}
-          </Route>
-
-          <Route path="/comment/:commentId(\d+)/edit" exact>
-            {isLoggedIn ? <CommentEditForm /> : <Redirect to="/login" />}
-          </Route>
-
-          <Route path="/comment/:commentId(\d+)" exact>
-            {isLoggedIn ? <CommentDeletionConfirmation /> : <Redirect to="/login" />}
-          </Route>
-        </CommentProvider>
-
-
-        <Route exact path="/Posts">
-          {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
-        </Route>
 
           <Route exact path="/UserPosts">
             <UserPostList />
           </Route>
 
-          <Route exact path="/Post/:postId(\d+)">
+          <Route exact path="/Post/GetById/:postId(\d+)">
             <PostDetails />
+          </Route>
+
+          <Route exact path="/Post/edit/:postId(\d+)">
+            <EditPost />
           </Route>
 
           <Route exact path="/Posts/NewPost">
