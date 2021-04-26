@@ -40,11 +40,6 @@ export const PostTagProvider = (props) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(postTag)
-            }).then(resp => {
-                if (resp.ok) {
-                    return resp.json();
-                }
-                throw new Error("Unauthorized");
             })
         )
     };

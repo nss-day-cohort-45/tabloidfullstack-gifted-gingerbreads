@@ -42,7 +42,7 @@ const PostDetails = () => {
           <p className="post-details">Published on {post.publishDateTime}</p>
           <p className="post-details">Published by {post.postAuthor?.displayName}</p>
           <img src={post.imageLocation} alt="No image available"></img>
-          <p>{post.content}</p>
+          <p className="postContent">{post.content}</p>
           <p>Published on {post.publishDateTime}</p>
           <p>Published by {post.postAuthor?.displayName}</p>
           <p>Tags: {postTags.map((postTag) => {

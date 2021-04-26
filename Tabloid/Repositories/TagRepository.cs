@@ -103,7 +103,7 @@ namespace Tabloid.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        Edit Tag SET Name = @Name WHERE id = @id";
+                        Update Tag SET Name = @Name WHERE id = @id";
                     cmd.Parameters.AddWithValue("@Name", tag.Name);
                     cmd.Parameters.AddWithValue("@id", tag.Id);
 

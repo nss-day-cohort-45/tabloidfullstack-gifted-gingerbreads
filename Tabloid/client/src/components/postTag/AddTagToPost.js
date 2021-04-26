@@ -14,7 +14,7 @@ const AddTagToPost = ({ tag }) => {
             tagId: tag.id
         }
         addPostTag(postTagObj)
-        history.push(`/post/${postId}`)
+        history.push(`/post/GetById/${postId}`)
     };
 
     return (

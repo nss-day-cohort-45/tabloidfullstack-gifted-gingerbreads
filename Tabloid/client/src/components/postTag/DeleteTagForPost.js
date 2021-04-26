@@ -12,7 +12,7 @@ const DeleteTagForPost = ({ postTag }) => {
     const handleDeletePostTag = () => {
         deletePostTag(postTag.id)
             .then(() => {
-                history.push(`/post/${postId}`)
+                history.push(`/post/GetById/${postId}`)
             })
     };
 
