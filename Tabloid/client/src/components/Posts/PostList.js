@@ -14,19 +14,20 @@ const PostList = () => {
 
   return (
     <div className="posts-container">
-      <Col>
+      <Col className="posts-header">
         <h1>All Posts</h1>
       </Col>
+      <hr></hr>
       <Col>
         {posts.map((post) => (
-          <div key={post.id}>
+          <div className="post-card" key={post.id}>
             <Link to={`/post/GetById/${post.id}`}>
               <h3 className="posts-title">
                 {post.title}
               </h3>
             </Link>
             <p className="posts--category">{post.postCategory.name}</p>
-            <p>Written by: {post.postAuthor.fullName}</p>
+            <p className="posts--author">Written by: {post.postAuthor.fullName}</p>
           </div>
         ))}
       </Col>
