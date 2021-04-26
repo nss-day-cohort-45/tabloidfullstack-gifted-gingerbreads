@@ -68,7 +68,7 @@ export const EditPost = () => {
                 </div>
             </fieldset>
             <Button color="primary" onClick={handleSave}>
-                <Link className="savePost" to={`/Post/${post.id}`} style={{ color: `#FFF` }}>
+                <Link className="savePost" to={`/Post/GetById/${post.id}`} style={{ color: `#FFF` }}>
                     Save Post
                 </Link>
             </Button>

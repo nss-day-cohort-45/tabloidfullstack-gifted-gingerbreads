@@ -87,14 +87,15 @@ export const PostProvider = (props) => {
 
 
   const getPostById = (postId) =>
-    getToken().then((token) => fetch(`https://localhost:5001/api/Post/GetById?postId=${postId}`, {
+    getToken().then((token) => fetch(`https://localhost:5001/api/Post/GetById/${postId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
       .then((res) => res.json())
-      .then(setPosts))
+      .then(getPosts()))
+
 
 
   const editPost = (post) =>

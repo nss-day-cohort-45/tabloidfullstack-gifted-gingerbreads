@@ -12,7 +12,7 @@ const PostDetails = () => {
 
   const [post, setPost] = useState({})
 
-  console.log(post)
+
 
   useEffect(() => {
     getPostById(postId)
@@ -20,7 +20,7 @@ const PostDetails = () => {
         setPost(res)
       })
   }, []);
-
+  console.log(post)
 
   const ManagePostTags = () => {
     history.push(`/posttag/manage-tags/${postId}`)
@@ -37,7 +37,7 @@ const PostDetails = () => {
           <img src={post.imageLocation} alt="No image available"></img>
           <p>{post.content}</p>
           <p>Published on {post.publishDateTime}</p>
-          <p>Published by {post.postAuthor.displayName}</p>
+          <p>Published by {post.postAuthor?.displayName}</p>
         </div>
       </div>
       <button onClick={() => {

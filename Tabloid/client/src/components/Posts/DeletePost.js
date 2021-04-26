@@ -3,21 +3,28 @@ import { PostContext } from "../../providers/PostProvider";
 import { Button } from "reactstrap";
 import { useParams, useHistory } from "react-router-dom";
 
-const DeletePost = ({ post_title }) => {
-    const { deletePost, getPostDetails, posts } = useContext(PostContext);
+const DeletePost = () => {
+    const { deletePost, getPostById, posts, getUserPosts } = useContext(PostContext);
 
     const { postId } = useParams();
 
     const history = useHistory();
 
+    const [post, setPost] = useState({})
+
     useEffect(() => {
-        getPostDetails(postId)
+        getPostById(postId)
+            .then((res) => {
+                setPost(res)
+            })
     }, [])
 
     const handlePostDelete = () => {
         deletePost(postId)
-            .then(history.push("/Posts"))
+            .then(getUserPosts)
+            .then(history.push("/Userposts"))
     }
+    console.log(post)
 
     const handleCancel = () => {
         history.push("/Posts")
@@ -25,7 +32,7 @@ const DeletePost = ({ post_title }) => {
 
     return (
         <section>
-            <div className="delete_message"> Are you sure you want to delete {posts[0]?.title}?</div>
+            <div className="delete_message"> Are you sure you want to delete {post.title}?</div>
             <Button className="delete" onClick={handlePostDelete}>Delete</Button>
             <Button className="cancel" onClick={handleCancel}>Cancel</Button>
 

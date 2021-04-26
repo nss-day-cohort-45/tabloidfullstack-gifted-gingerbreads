@@ -51,7 +51,7 @@ namespace Tabloid.Controllers
 
 
 
-        [HttpGet("GetById")]
+        [HttpGet("GetById/{postId}")]
         public IActionResult GetById(int postId)
         {
             var post = _postRepository.GetPostById(postId);

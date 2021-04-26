@@ -108,9 +108,9 @@ export default function ApplicationViews() {
               {isLoggedIn ? <CommentCreateForm /> : <Redirect to="/login" />}
             </Route>
 
-          <Route path="/comment/:commentId(\d+)/edit" exact>
-            {isLoggedIn ? <CommentEditForm /> : <Redirect to="/login" />}
-          </Route>
+            <Route path="/comment/:commentId(\d+)/edit" exact>
+              {isLoggedIn ? <CommentEditForm /> : <Redirect to="/login" />}
+            </Route>
 
             <Route path="/comment/:commentId(\d+)" exact>
               {isLoggedIn ? <CommentDeletionConfirmation /> : <Redirect to="/login" />}
