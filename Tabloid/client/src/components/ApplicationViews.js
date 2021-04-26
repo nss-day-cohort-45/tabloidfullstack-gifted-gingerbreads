@@ -1,9 +1,15 @@
 import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { UserProfileContext } from "../providers/UserProfileProvider";
+
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
+
+import { UserProfileContext } from "../providers/UserProfileProvider";
+import { UserProfileProvider } from "../providers/UserProfileProvider"
+import { UserProfileList } from "./userprofiles/UserProfileList"
+import { UserProfileDetails } from "./userprofiles/UserProfileDetails"
+
 import { CommentProvider } from "../providers/CommentProvider";
 import CommentList from "./Comments.js/CommentList";
 import CommentCreateForm from "./Comments.js/CommentCreateForm";
@@ -13,12 +19,16 @@ import TagList from "./tags/TagList";
 import TagForm from "./tags/TagForm";
 import TagDelete from "./tags/TagDelete";
 import TagEdit from "./tags/TagEdit";
+import ManagePostTags from "./postTag/ManagePostTags";
+import { PostTagProvider } from "../providers/PostTagProvider";
+import { TagProvider } from "../providers/TagProvider";
+
 import CategoryList from "./Categories/CategoryList";
 import CategoryProvider, { CategoryContext } from "../providers/CategoryProvider"
 import CategoryForm from "./Categories/CategoryForm"
 import EditCategory from "./Categories/EditCategory"
 import DeleteCategory from "./Categories/DeleteCategory"
-import ManagePostTags from "./postTag/ManagePostTags";
+
 import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
 import PostDetails from "./Posts/PostDetails"
@@ -71,6 +81,15 @@ export default function ApplicationViews() {
         <Route path="/register">
           <Register />
         </Route>
+
+        <UserProfileProvider>
+          <Route exact path="/userProfiles">
+            <UserProfileList />
+          </Route>
+          <Route exact path="/userProfiles/detail/getById/:userProfileId(\d+)">
+            <UserProfileDetails />
+          </Route>
+        </UserProfileProvider>
       </Switch>
       <Route path="/api/category">
         <CategoryProvider >

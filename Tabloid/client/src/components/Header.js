@@ -27,6 +27,7 @@ export default function Header() {
             {isLoggedIn &&
               <NavItem>
                 <NavLink tag={RRNavLink} to="/">Home</NavLink>
+                <NavLink tag={RRNavLink} to="/userProfiles">User Profiles</NavLink>
                 <NavLink tag={RRNavLink} to="/tags">Tags</NavLink>
                 <NavLink tag={RRNavLink} to="/api/category">Category Management</NavLink>
                 <NavLink tag={RRNavLink} to="/Posts">Posts</NavLink>
@@ -42,6 +43,10 @@ export default function Header() {
                 <NavItem>
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
+                </NavItem>
+           
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/api/category">Category Management</NavLink>
                 </NavItem>
               </>
             }

@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using Tabloid.Models;
 using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+   
     public class UserProfileController : ControllerBase
     {
         private readonly IUserProfileRepository _userProfileRepository;
@@ -32,5 +35,27 @@ namespace Tabloid.Controllers
                 new { firebaseUserId = userProfile.FirebaseUserId },
                 userProfile);
         }
+
+       
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_userProfileRepository.GetAllUserProfiles());
+        }
+
+
+
+        [HttpGet("getById/{id}")]
+        public IActionResult Get(int id)
+        {
+            var up = _userProfileRepository.GetUserProfileById(id);
+            if (up == null)
+            {
+                return NotFound();
+            }
+            return Ok(up);
+        }
+
+
     }
 }
