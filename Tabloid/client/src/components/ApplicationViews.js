@@ -9,6 +9,7 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import { UserProfileProvider } from "../providers/UserProfileProvider"
 import { UserProfileList } from "./userprofiles/UserProfileList"
 import { UserProfileDetails } from "./userprofiles/UserProfileDetails"
+import { PostProvider } from "../providers/PostProvider"
 
 import { CommentProvider } from "../providers/CommentProvider";
 import CommentList from "./Comments.js/CommentList";
