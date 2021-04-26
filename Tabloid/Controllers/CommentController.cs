@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
 using Tabloid.Models;
@@ -8,6 +9,7 @@ using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase
@@ -64,14 +66,16 @@ namespace Tabloid.Controllers
 
 
 
-        [HttpPut("/comment/edit/{id}")]
-        public IActionResult Put(int id, Comment comment)
+        [HttpPut("/comment/{commentId}/edit")]
+        public IActionResult Put(int commentId, Comment comment) //the first param name "commentId" MUST MATCH the param "{commentId}" in the PUT URL in teh above line
         {
-            if (id != comment.Id)
+            if (commentId != comment.Id)
             {
                 return BadRequest();
             }
-
+            var currentUserProfile = GetCurrentUserProfile();
+            comment.UserProfileId = currentUserProfile.Id;
+            comment.CreateDateTime = DateTime.Now.ToString("MM/dd/yyyy");
             _commentRepository.Update(comment);
             return NoContent();
         }
