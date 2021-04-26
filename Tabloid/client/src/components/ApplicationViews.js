@@ -22,21 +22,16 @@ import TagEdit from "./tags/TagEdit";
 import ManagePostTags from "./postTag/ManagePostTags";
 import { PostTagProvider } from "../providers/PostTagProvider";
 import { TagProvider } from "../providers/TagProvider";
-
 import CategoryList from "./Categories/CategoryList";
 import CategoryProvider, { CategoryContext } from "../providers/CategoryProvider"
 import CategoryForm from "./Categories/CategoryForm"
 import EditCategory from "./Categories/EditCategory"
 import DeleteCategory from "./Categories/DeleteCategory"
-
 import PostList from "./Posts/PostList";
 import UserPostList from "./Posts/UserPostsList";
 import PostDetails from "./Posts/PostDetails"
 import AddPostForm from "./Posts/AddPost"
 import DeletePost from "./Posts/DeletePost"
-import { PostProvider } from "../providers/PostProvider";
-import { PostTagProvider } from "../providers/PostTagProvider";
-import { TagProvider } from "../providers/TagProvider";
 import { EditPost } from "./Posts/EditPost";
 
 export default function ApplicationViews() {
